@@ -5,8 +5,13 @@
 As redes neurais artificiais, como conhecidas na literatura \cite{haykin2004comprehensive, haykin2009neural, lecun2015deep}, são estruturas aptas ao aprendizado inspiradas na forma com que os neurônios de cérebros reais funcionam. Um modo estrutural de organização, bem como a distribuição de informação ao longo da arquitetura foram levados em conta na construção deste poderoso modelo matemático que hoje conhecemos como Redes Neurais \cite{haykin2004comprehensive, haykin2009neural, lecun2015deep}. Tais redes são reconhecidamente uma tecnologia bioinspirada, já que são profundamente motivadas pelo aprendizado demonstrado pelo cérebro de seres vivos, notadamente o dos seres humanos. 
 \begin{figure}[b]
     \centering
+    \caption{Representação de um neurônio.}
     \includegraphics[scale=0.17]{Figuras/Cap2/neuronio.png}
-        \caption{Representação de um neurônio. Figura \ref{fig:neuronio} extraída do site \cite{Pixabay} e editada pelo autor. O site \cite{Pixabay} é uma plataforma gratuita de distribuição de imagens, ou seja, o uso das imagens não ferem direitos autorais.}
+    \begin{center}
+    Fonte:
+        Figura \ref{fig:neuronio} extraída do site Pixabay \cite{Pixabay} e editada pelo autor. O site Pixabay \cite{Pixabay} é uma plataforma gratuita de distribuição de imagens, ou seja, o uso das imagens não ferem direitos autorais.
+    \end{center}
+         
         \label{fig:neuronio}
 \end{figure}
 
@@ -97,6 +102,7 @@ Nas seção \ref{subsubsec:representacaoumneuronio} foi apresentado a representa
 
 \begin{figure}
 \centering
+\caption{Representação de uma Rede Neural}
 \large
 \begin{tikzpicture}[shorten >=1pt,->,draw=black!50, node distance=\layersep]
     \tikzstyle{every pin edge}=[<-,shorten <=1pt]
@@ -160,7 +166,6 @@ Nas seção \ref{subsubsec:representacaoumneuronio} foi apresentado a representa
     \node[annot] at (4, -0.5){Camada k-1};
     \node[annot] at (7, -0.5){Camada k};
 \end{tikzpicture}
-\caption{Representação de uma Rede Neural}
 \label{fg:rede_neural_generica}
 \end{figure}
 
@@ -223,7 +228,7 @@ A função de ativação é denotada como $h_\Theta (x)$ e define a saída de um
 \label{subsec:sigmoid}
 \dbh{Não, mil vezes não! A sigmoide é suave, não é brusca como mostrado na equação (23)! Este capítulo tem que ser muito lapidado. Só tem definições matemáticas, com pouca discussão motivadora! Ler mais!}
 
-A Eq.\qref{fun:sigmoid} representa a função sigmoide, apresentada graficamente na Fig. \ref{fg:funcao_sigmoide}. 
+A Eq.\ref{fun:sigmoid} representa a função sigmoide, apresentada graficamente na Fig. \ref{fg:funcao_sigmoide}. 
 
 
 \begin{equation}
@@ -233,6 +238,7 @@ A Eq.\qref{fun:sigmoid} representa a função sigmoide, apresentada graficamente
 
 \begin{center}
     \begin{figure}
+     \caption{Função Sigmoide}
         \centering
         \begin{tikzpicture}
         	\begin{axis}[
@@ -242,7 +248,7 @@ A Eq.\qref{fun:sigmoid} representa a função sigmoide, apresentada graficamente
         	\addplot {1 / (1 + e^-x)};
         	\end{axis}
         \end{tikzpicture}
-    \caption{Função Sigmoide}\label{fg:funcao_sigmoide}
+   \label{fg:funcao_sigmoide}
 	\end{figure}
 \end{center}
 
@@ -257,6 +263,7 @@ A Eq.\qref{fun:sigmoid} representa a função sigmoide, apresentada graficamente
 
 \begin{center}
     \begin{figure}
+    \caption{Função Tangente Hiperbólica}
         \centering
         \begin{tikzpicture}
         	\begin{axis}[
@@ -266,7 +273,7 @@ A Eq.\qref{fun:sigmoid} representa a função sigmoide, apresentada graficamente
         	\addplot {(e^x - e^-x) / (e^x + e^-x)};
         	\end{axis}
         \end{tikzpicture}
-    \caption{Função Tangente Hiperbólica}\label{fg:funcao_tanh}
+    \label{fg:funcao_tanh}
 	\end{figure}
 \end{center}
 
@@ -278,7 +285,7 @@ A função ReLU (\textit{rectified linear unit}) realiza a ativação do nó ape
 
 \begin{figure}[!htb]
     \centering
-    
+    \caption{Função ReLU.}
     \begin{tikzpicture}
     \begin{axis}[
         		xlabel=$x$,
@@ -288,5 +295,5 @@ A função ReLU (\textit{rectified linear unit}) realiza a ativação do nó ape
         \addplot+[mark=none,blue,domain=0:4] {x};
     \end{axis}
 \end{tikzpicture}
-\caption{Função ReLU. \label{fig:relu}}
+\label{fig:relu}
 \end{figure}

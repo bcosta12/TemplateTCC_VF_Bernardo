@@ -69,13 +69,14 @@ Na próxima seção serão apresentados os algoritmos e a metodologia utilizada 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{center}
 	\begin{figure}[H]
+    \caption{Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends} no mesmo período utilizado no trabalho \cite{wilson_yelowitz_2014}}\label{fg:comparacao_btc_n}
 
-
-	\begin{subfigure}{15cm}
+	\begin{subfigure}{}
 		
 		\begin{tikzpicture}
 
 		\begin{axis}[
+		title={Valor do preço do Bitcoin},
 		    date coordinates in=x,
 		    xticklabel={\day-\month-\year},
 		    x tick label style={rotate=45,anchor=north east},
@@ -92,14 +93,14 @@ Na próxima seção serão apresentados os algoritmos e a metodologia utilizada 
 		\addplot [blue, mark=*] table [x=date, y=value, col sep=comma] {price.csv};
 		\end{axis}
 		\end{tikzpicture}
-        \caption{Valor do preço do Bitcoin}\label{gr:btc}
+        \label{gr:btc}
 	\end{subfigure}
 	%sub fig 2
-	\begin{subfigure}{15cm}
+	\begin{subfigure}{}
 		\begin{tikzpicture}
 
 		\begin{axis}[
-			title={Valor Bitcoin no Google Trends}, 
+			title={Valor \textit{Google Trends} do Bitcoin}, 
 		    date coordinates in=x,
 		    xticklabel={\day-\month-\year},
 		    x tick label style={rotate=45,anchor=north east},
@@ -115,9 +116,11 @@ Na próxima seção serão apresentados os algoritmos e a metodologia utilizada 
 		\addplot [red, mark=*] table [x=date, y=bitcoin, col sep=comma] {gt.csv};
 		\end{axis}
 		\end{tikzpicture}
-    	\caption{Valor do Bitcoin.}\label{gr:litecoin_gtrends_12m}
+    	\label{gr:litecoin_gtrends_12m}
 	\end{subfigure}
-    \caption{Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends} no mesmo período utilizado no trabalho \cite{wilson_yelowitz_2014}}\label{fg:comparacao_btc_n}
+	\begin{center}
+	    Fonte: O autor (2018)
+	\end{center}
 	\end{figure}
 \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -125,13 +128,14 @@ Na próxima seção serão apresentados os algoritmos e a metodologia utilizada 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{center}
 	\begin{figure}[H]
+    \caption{Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends} normalizados, no mesmo período utilizado no trabalho \cite{wilson_yelowitz_2014}}\label{fg:comparacao_btc_normalizado}
 
-
-	\begin{subfigure}{15cm}
+	\begin{subfigure}{}
 		
 		\begin{tikzpicture}
 
 		\begin{axis}[
+		title={Valor do preço do Bitcoin Normalizados},
 		    date coordinates in=x,
 		    xticklabel={\day-\month-\year},
 		    x tick label style={rotate=45,anchor=north east},
@@ -148,14 +152,14 @@ Na próxima seção serão apresentados os algoritmos e a metodologia utilizada 
 		\addplot [blue, mark=*] table [x=date, y=value, col sep=comma] {price_n.csv};
 		\end{axis}
 		\end{tikzpicture}
-        \caption{Valor do preço do Bitcoin Normalizados}\label{gr:btc_normalizado}
+        \label{gr:btc_normalizado}
 	\end{subfigure}
 	%sub fig 2
-	\begin{subfigure}{15cm}
+	\begin{subfigure}{}
 		\begin{tikzpicture}
 
 		\begin{axis}[
-			title={Valor Bitcoin no Google Trends Normalizados}, 
+			title={Valor do \textit{Google Trends}  do termor Bitcoin Normalizado}, 
 		    date coordinates in=x,
 		    xticklabel={\day-\month-\year},
 		    x tick label style={rotate=45,anchor=north east},
@@ -171,9 +175,11 @@ Na próxima seção serão apresentados os algoritmos e a metodologia utilizada 
 		\addplot [red, mark=*] table [x=date, y=bitcoin, col sep=comma] {gt_n.csv};
 		\end{axis}
 		\end{tikzpicture}
-    	\caption{Valor do Bitcoin.}\label{gr:btc_gtrends_n}
+    	\label{gr:btc_gtrends_n}
 	\end{subfigure}
-    \caption{Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends} normalizados, no mesmo período utilizado no trabalho \cite{wilson_yelowitz_2014}}\label{fg:comparacao_btc_normalizado}
+	\begin{center}
+	    Fonte: O autor (2018)
+	\end{center}
 	\end{figure}
 \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -181,13 +187,14 @@ Na próxima seção serão apresentados os algoritmos e a metodologia utilizada 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{center}
 	\begin{figure}[H]
+    \caption{Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends} normalizados concatenados, com o resultado dos mesmos dados após o PCA com $n=2$, no mesmo período utilizado no trabalho \cite{wilson_yelowitz_2014}}\label{fg:comparacao_btc}
 
-
-	\begin{subfigure}{15cm}
+	\begin{subfigure}{}
 		
 		\begin{tikzpicture}
 
 		\begin{axis}[
+		title={Valor do Bitcoin e do \textit{Google Trends} do termo Bitcoin Normalizados, sobrepostos},
 		    date coordinates in=x,
 		    xticklabel={\day-\month-\year},
 		    x tick label style={rotate=45,anchor=north east},
@@ -206,14 +213,14 @@ Na próxima seção serão apresentados os algoritmos e a metodologia utilizada 
 		\addplot [red, mark=*] table [x=date, y=bitcoin, col sep=comma] {2d.csv};
 		\end{axis}
 		\end{tikzpicture}
-        \caption{Valor do preço do Bitcoin e do Google Trends Normalizados}\label{gr:2d}
+        \label{gr:2d}
 	\end{subfigure}
 	%sub fig 2
-	\begin{subfigure}{15cm}
+	\begin{subfigure}{}
 		\begin{tikzpicture}
 
 		\begin{axis}[
-			title={Valor Bitcoin no Google Trends Normalizados}, 
+			title={Valor do Bitcoin e do \textit{Google Trends} fo Bitcoin Normalizados após aplicação do PCA}, 
 		    date coordinates in=x,
 		    xticklabel={\day-\month-\year},
 		    x tick label style={rotate=45,anchor=north east},
@@ -229,9 +236,11 @@ Na próxima seção serão apresentados os algoritmos e a metodologia utilizada 
 		\addplot [purple, mark=*] table [x=date, y=mix, col sep=comma] {1d.csv};
 		\end{axis}
 		\end{tikzpicture}
-    	\caption{Resultado do PCA nos dados do Bitcoin e Google Trends.}\label{gr:1d}
+    	\label{gr:1d}
 	\end{subfigure}
-    \caption{Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends} normalizados concatenados, com o resultado dos mesmos dados após o PCA com $n=2$, no mesmo período utilizado no trabalho \cite{wilson_yelowitz_2014}}\label{fg:comparacao_btc}
+	\begin{center}
+	    Fonte: O autor (2018)
+	\end{center}
 	\end{figure}
 \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

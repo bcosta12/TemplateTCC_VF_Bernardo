@@ -134,13 +134,14 @@ Analisando os dois gráficos de cada cripto-moeda é possível perceber como os 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{center}
 	\begin{figure}[H]
-
-
+    \caption{Comparação dos gráfico do valor do Bitcoin e do \textit{Google Trends.}}
+        
 	\begin{subfigure}{}
-		
+		%\caption{Valor do Bitcoin.}
 		\begin{tikzpicture}
 
 		\begin{axis}[
+		  title={Valor do Google Trands do termo Bitcoin},
 		    date coordinates in=x,
 		    xticklabel={\day-\month-\year},
 		    x tick label style={rotate=45,anchor=north east},
@@ -157,14 +158,16 @@ Analisando os dois gráficos de cada cripto-moeda é possível perceber como os 
 		\addplot [blue, mark=*] table [x=date, y=value, col sep=comma] {bitcoin_coindesk_12m.csv};
 		\end{axis}
 		\end{tikzpicture}
-        \caption{Valor do Bitcoin.}\label{gr:bitcoin_coindesk_12m}
+        \label{gr:bitcoin_coindesk_12m}
 	\end{subfigure}
+
 	%sub fig 2
 	\begin{subfigure}{}
+	%\caption{Valor do Google Trands do termo Bitcoin.}
 		\begin{tikzpicture}
 
 		\begin{axis}[
-			title={Valor Bitcoin no Google Trends}, 
+			title={Valor do Google Trands do termo Bitcoin},
 		    date coordinates in=x,
 		    xticklabel={\day-\month-\year},
 		    x tick label style={rotate=45,anchor=north east},
@@ -180,9 +183,13 @@ Analisando os dois gráficos de cada cripto-moeda é possível perceber como os 
 		\addplot [red, mark=*] table [x=date, y=value, col sep=comma] {bitcoin_gtrends_12m.csv};
 		\end{axis}
 		\end{tikzpicture}
-    	\caption{Valor do Bitcoin.}\label{gr:bitcoin_gtrends_12m}
+    	\label{gr:bitcoin_gtrends_12m}
 	\end{subfigure}
-    \caption{Comparação dos gráfico do valor do Bitcoin e do \textit{Google Trends.}}\label{fg:comparacao_bitcoin_12m}
+
+    \label{fg:comparacao_bitcoin_12m}
+    \begin{center}
+         Fonte: O autor (2018)
+    \end{center}
 	\end{figure}
 \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -191,37 +198,35 @@ Analisando os dois gráficos de cada cripto-moeda é possível perceber como os 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{center}
 	\begin{figure}[H]
-
-
-	\begin{subfigure}{}
-		
-		\begin{tikzpicture}
-
-		\begin{axis}[
-		    date coordinates in=x,
-		    xticklabel={\day-\month-\year},
-		    x tick label style={rotate=45,anchor=north east},
-		    date ZERO=2017-05-27,
-		    xmin=2017-05-27, xmax=2018-05-20,
-		    ymin=170,ymax=1400,
-		    height=8cm,
-			width=14cm,
-			grid=major,
-		    xlabel={Data (dia-mês-ano)},
-		    ylabel={Valor em dólares},
-		]
-		\addlegendentry{Preço ETH}
-		\addplot [blue, mark=*] table [x=date, y=value, col sep=comma] {ethereum_coindesk_12m.csv};
-		\end{axis}
+	    \caption{Comparação dos gráfico do valor do Ethereum e do \textit{Google Trends.}}
+	    \begin{subfigure}{}
+		    \begin{tikzpicture}
+		    \begin{axis}[
+		        title={Valor do Ethereum.},
+		        date coordinates in=x,
+		        xticklabel={\day-\month-\year},
+		        x tick label style={rotate=45,anchor=north east},
+		        date ZERO=2017-05-27,
+		        xmin=2017-05-27, xmax=2018-05-20,
+		        ymin=170,ymax=1400,
+		        height=8cm,
+			    width=14cm,
+			    grid=major,
+		        xlabel={Data (dia-mês-ano)},
+		        ylabel={Valor em dólares},
+		    ]
+		    \addlegendentry{Preço ETH}
+		    \addplot [blue, mark=*] table [x=date, y=value, col sep=comma] {ethereum_coindesk_12m.csv};
+		    \end{axis}
 		\end{tikzpicture}
-        \caption{Valor do Ethereum.}\label{gr:ethereum_coindesk_12m}
+        \label{gr:ethereum_coindesk_12m}
 	\end{subfigure}
 	%sub fig 2
 	\begin{subfigure}{}
 		\begin{tikzpicture}
 
 		\begin{axis}[
-			title={Valor Ethereum no Google Trends}, 
+			title={Valor do \textit{Google Trends.} do  termo Ethereum.}, 
 		    date coordinates in=x,
 		    xticklabel={\day-\month-\year},
 		    x tick label style={rotate=45,anchor=north east},
@@ -237,9 +242,13 @@ Analisando os dois gráficos de cada cripto-moeda é possível perceber como os 
 		\addplot [red, mark=*] table [x=date, y=value, col sep=comma] {ethereum_gtrends_12m.csv};
 		\end{axis}
 		\end{tikzpicture}
-    	\caption{Valor do Ethereum.}\label{gr:ethereum_gtrends_12m}
+        \label{gr:ethereum_gtrends_12m}
 	\end{subfigure}
-    \caption{Comparação dos gráfico do valor do Ethereum e do \textit{Google Trends}.}\label{fg:comparacao_ethereum_12m}
+    
+    \begin{center}
+         Fonte: O autor (2018)
+    \end{center}
+    \label{fg:comparacao_ethereum_12m}
 	\end{figure}
 \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -248,13 +257,14 @@ Analisando os dois gráficos de cada cripto-moeda é possível perceber como os 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{center}
 	\begin{figure}[H]
-
+    \caption{Comparação dos gráfico do valor do Litecoin e do \textit{Google Trends}.}
 
 	\begin{subfigure}{}
 		
 		\begin{tikzpicture}
 
 		\begin{axis}[
+		title={Valor do Litecoin.},
 		    date coordinates in=x,
 		    xticklabel={\day-\month-\year},
 		    x tick label style={rotate=45,anchor=north east},
@@ -271,14 +281,14 @@ Analisando os dois gráficos de cada cripto-moeda é possível perceber como os 
 		\addplot [blue, mark=*] table [x=date, y=value, col sep=comma] {litecoin_coinmarketcap_12m.csv};
 		\end{axis}
 		\end{tikzpicture}
-        \caption{Valor do Litecoin.}\label{gr:litecoin_coindesk_12m}
+        \label{gr:litecoin_coindesk_12m}
 	\end{subfigure}
 	%sub fig 2
 	\begin{subfigure}{}
 		\begin{tikzpicture}
 
 		\begin{axis}[
-			title={Valor Litecoin no Google Trends}, 
+			title={Valor do \textit{Google Trends} do termo Litecoin}, 
 		    date coordinates in=x,
 		    xticklabel={\day-\month-\year},
 		    x tick label style={rotate=45,anchor=north east},
@@ -294,9 +304,12 @@ Analisando os dois gráficos de cada cripto-moeda é possível perceber como os 
 		\addplot [red, mark=*] table [x=date, y=value, col sep=comma] {litecoin_gtrends_12m.csv};
 		\end{axis}
 		\end{tikzpicture}
-    	\caption{Valor do Ethereum.}\label{gr:litecoin_gtrends_12m}
+    	\label{gr:litecoin_gtrends_12m}
 	\end{subfigure}
-    \caption{Comparação dos gráfico do valor do Litecoin e do \textit{Google Trends}.}\label{fg:comparacao_litecoin_12m}
+    \label{fg:comparacao_litecoin_12m}
+    \begin{center}
+         Fonte: O autor (2018)
+    \end{center}
 	\end{figure}
 \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -305,13 +318,14 @@ Analisando os dois gráficos de cada cripto-moeda é possível perceber como os 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{center}
 	\begin{figure}[H]
-
+    \caption{Comparação dos gráfico do valor do Ripple e do \textit{Google Trends}.}
 
 	\begin{subfigure}{}
 		
 		\begin{tikzpicture}
 
 		\begin{axis}[
+		title={Valor do Ripple.},
 		    date coordinates in=x,
 		    xticklabel={\day-\month-\year},
 		    x tick label style={rotate=45,anchor=north east},
@@ -328,14 +342,14 @@ Analisando os dois gráficos de cada cripto-moeda é possível perceber como os 
 		\addplot [blue, mark=*] table [x=date, y=value, col sep=comma] {ripple_investing_12m.csv};
 		\end{axis}
 		\end{tikzpicture}
-        \caption{Valor do Ripple.}\label{gr:ripple_coindesk_12m}
+       \label{gr:ripple_coindesk_12m}
 	\end{subfigure}
 	%sub fig 2
 	\begin{subfigure}{}
 		\begin{tikzpicture}
 
 		\begin{axis}[
-			title={Valor Ripple no Google Trends}, 
+			title={Valor do \textit{Google Trends} do termo Ripple}, 
 		    date coordinates in=x,
 		    xticklabel={\day-\month-\year},
 		    x tick label style={rotate=45,anchor=north east},
@@ -351,22 +365,26 @@ Analisando os dois gráficos de cada cripto-moeda é possível perceber como os 
 		\addplot [red, mark=*] table [x=date, y=value, col sep=comma] {ripple_gtrends_12m.csv};
 		\end{axis}
 		\end{tikzpicture}
-    	\caption{Valor do Ripple.}\label{gr:ripple_gtrends_12m}
+    \label{gr:ripple_gtrends_12m}
 	\end{subfigure}
-    \caption{Comparação dos gráfico do valor do Ripple e do \textit{Google Trends}.}\label{fg:comparacao_ripple_12m}
+    \label{fg:comparacao_ripple_12m}
+    \begin{center}
+         Fonte: O autor (2018)
+    \end{center}
 	\end{figure}
 \end{center}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{center}
 	\begin{figure}[H]
-
+    \caption{Comparação dos gráfico do valor do Bitcoin Cash e do \textit{Google Trends}}
 
 	\begin{subfigure}{}
 		
 		\begin{tikzpicture}
 
 		\begin{axis}[
+		title={Valor do Bitcoin Cash.},
 		    date coordinates in=x,
 		    xticklabel={\day-\month-\year},
 		    x tick label style={rotate=45,anchor=north east},
@@ -383,14 +401,14 @@ Analisando os dois gráficos de cada cripto-moeda é possível perceber como os 
 		\addplot [blue, mark=*] table [x=date, y=value, col sep=comma] {bcash_investing_12m.csv};
 		\end{axis}
 		\end{tikzpicture}
-        \caption{Valor do Bitcoin Cash.}\label{gr:bcash_coindesk_12m}
+        \label{gr:bcash_coindesk_12m}
 	\end{subfigure}
 	%sub fig 2
 	\begin{subfigure}{}
 		\begin{tikzpicture}
 
 		\begin{axis}[
-			title={Valor Bitcoin Cash no Google Trends}, 
+			title={Valor do \textit{Google Trends} do termo Bitcoin Cash}, 
 		    date coordinates in=x,
 		    xticklabel={\day-\month-\year},
 		    x tick label style={rotate=45,anchor=north east},
@@ -406,9 +424,12 @@ Analisando os dois gráficos de cada cripto-moeda é possível perceber como os 
 		\addplot [red, mark=*] table [x=date, y=value, col sep=comma] {bcash_gtrends_12m.csv};
 		\end{axis}
 		\end{tikzpicture}
-    	\caption{Valor do Bitcoin Cash.}\label{gr:bcash_gtrends_12m}
+    	\label{gr:bcash_gtrends_12m}
 	\end{subfigure}
-    \caption{Comparação dos gráfico do valor do Bitcoin Cash e do \textit{Google Trends}}\label{fg:comparacao_bcash_12m}
+    \label{fg:comparacao_bcash_12m}]
+    \begin{center}
+         Fonte: O autor (2018)
+    \end{center}
 	\end{figure}
 \end{center}
 \subsection{Objetivo}
