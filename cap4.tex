@@ -48,7 +48,7 @@ Esse procedimento Ã© repetido para todas as $k$ camadas, menos a primeira, que Ã
        \Para{i = 1 ; m}{
     $         a^{(1)} \coloneqq x^{1}$\\
             Execute forward propagation $a^{(l)}$ para $l=2,3,...,L $\\
-    $        \delta^{(L)}\coloneqqa^{(L)}-y^{(i)} $\\
+    $        \delta^{(L)} \coloneqq a^{(L)}-y^{(i)} $\\
             Calcule todos os $\delta^{(L-1)}$,$\delta^{(L-1)}$,...,$\delta^{(2)} $\\
     $         \Delta^{(l)}_{ij} \coloneqq \Delta^{(l)}_{ij} + a^{(l)}_{j}\Delta^{(l+1)}_{i} $\\
              \Se{j=0}{
@@ -57,7 +57,7 @@ Esse procedimento Ã© repetido para todas as $k$ camadas, menos a primeira, que Ã
     $          \mathbf{D^{(l)}_{ij}} \coloneqq \frac{1}{m} \Delta^{(l)}_{ij}+\lambda\Theta^{(l)}_{ij} $\\
              }
         }
-    $    \Theta = \Theta - \mathbf{D}*a$\\
+    $    \Theta = \Theta - \mathbf{D}*a $\\
   }
    \Retorna{$\Theta$}
    \label{alg:BP}
