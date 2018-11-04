@@ -1,0 +1,164 @@
+\section{Algoritmos}
+
+O foco principal dos algoritmos utilizados neste trabalho, que serão apresentados a seguir, é obter o máximo de informação dos dados, afim de construir um modelo, uma arquitetura de Rede Neural, para prever o comportamento do valor do preço do Bitcoin. Os algoritmos utilizados são: Backpropagation e o K-Fold, que serão apresentados a seguir.
+ 
+\subsection{Backpropagation}
+\label{subsec:backpropagation}
+
+ As Redes Neurais estão entre os algoritmos de aprendizado mais poderosos da atualidade. Um dos grandes desafios das Redes Neurais é a escolha dos parâmetros da rede que maximizam o seu desempenho. A escolha dos parâmetros está relacionada diretamente com a \textbf{função custo}.
+ 
+ Para descrever a função custo, vamos considerar o problema de classificação binária, que é o foco deste trabalho. Do ponto de vista da Rede Neural, ela deve possuir apenas um neurônio na última camada para produzir um valor que será encaixado entre 0 e 1, que é alcançado graças a uma função de ativação, nesse trabalho a função Sigmoide foi utilizada para isso.
+ 
+ A função custo utilizada neste trabalho foi a MSE \cite{lehmann2006theory}. O Backprogation será usado então para minimizar o resultado da função custo, escolhendo os parâmetros da rede que satisfazem essa condição. O Backpropagation tem esse nome por causa desse algoritmo que calcula os erros de trás para frente.
+ 
+ A primeira parte para calcular o Backpropagation é executar o chamado \textit{Forward propagation}, que nada mais é que calcular a saída $\mathbf{h_\theta}$. Com a saída $\mathbf{h_\theta}$ calculada, devemos calcular o $\mathbf{\delta_k}$, que é o vetor com todos os erros da camada $k$. O cálculo de $\mathbf{\delta_k}$ pode ser visto na Eq. \ref{eq:deltak}, que pode ser entendido simplesmente como a subtração da saída esperada,  $\mathbf{y}$, pelo resultado obtido, $\mathbf{a_k}$ (é importante notar que $\mathbf{a_k} = \mathbf{h_\theta}$). 
+ 
+\begin{equation}
+\label{eq:deltak}
+\mathbf{\delta_k} = \mathbf{a_k} - \mathbf{y}
+\end{equation}
+
+Com $\mathbf{\delta_k}$ calculado, regredimos uma camada e calculamos $\mathbf{\delta_{k-1}}$ como mostra a Eq. \ref{eq:deltak-1}, onde $\mathbf{g'(z^k)}$ pode ser calculado usando a Eq. \ref{eq:glinha}.
+
+\begin{equation}
+\label{eq:deltak-1}
+\mathbf{\delta_{k-1}} = (\Theta^{k-1})^T \delta^{k} * \mathbf{g'(z^k)}
+\end{equation}
+  
+\begin{equation}
+\label{eq:glinha}
+\mathbf{g'(z^k)} = \mathbf{a^{k-1}*(1-a^{k-1})}
+\end{equation}
+
+Esse procedimento é repetido para todas as $k$ camadas, menos a primeira, que é a camada de entrada, logo não faz sentido calcular o erro da entrada. A Eq. \ref{eq:deltakgenerico} exemplifica o cálculo dos $\mathbf{\delta_{i}}$, que serão usados para atualizar os pesos da Rede Neural.  
+
+\begin{equation}
+\label{eq:deltakgenerico}
+\mathbf{\delta_{i}} = (\Theta^{i})^T \delta^{i+1} * \mathbf{g'(z^i+1)}.
+\end{equation}
+ 
+ Essa é a ideia central do Algoritmo Backpropagation, ir calcular o erro do final, que é o mais fácil de ser calculado, para o começo. Com isso, atualizar os pesos para melhor se aproximar do resultado desejado. O Algoritmo completo de como o Backpropagation realiza essas atualização pode ser visto a seguir:
+ 
+ \begin{algorithm}[H]
+   \SetAlgoLined
+   \Entrada{$\mathbf{X, Y}$} 
+   \Saida{$\Theta$}
+   \Inicio{
+    $   \Delta^{(l)}_{ij} \coloneqq \mathbf{0} $\\
+       \Para{i = 1 ; m}{
+    $         a^{(1)} \coloneqq x^{1}$\\
+            Execute forward propagation $a^{(l)}$ para $l=2,3,...,L $\\
+    $        \delta^{(L)}\coloneqqa^{(L)}-y^{(i)} $\\
+            Calcule todos os $\delta^{(L-1)}$,$\delta^{(L-1)}$,...,$\delta^{(2)} $\\
+    $         \Delta^{(l)}_{ij} \coloneqq \Delta^{(l)}_{ij} + a^{(l)}_{j}\Delta^{(l+1)}_{i} $\\
+             \Se{j=0}{
+    $         \mathbf{D^{(l)}_{ij}} \coloneqq \frac{1}{m}\Delta^{(l)}_{ij} $\\
+             }\Se{j$\neq$0}{
+    $          \mathbf{D^{(l)}_{ij}} \coloneqq \frac{1}{m} \Delta^{(l)}_{ij}+\lambda\Theta^{(l)}_{ij} $\\
+             }
+        }
+    $    \Theta = \Theta - \mathbf{D}*a$\\
+  }
+   \Retorna{$\Theta$}
+   \label{alg:BP}
+   \caption{\textsc{Algoritmo do Backpropagation }}
+ \end{algorithm}
+
+Na próxima seção será abordado um dos métodos utilizados para seleção de modelos, o K-Fold.
+
+\subsection{K-Fold}
+ 
+ Um dos problemas encontrados em soluções de Redes Neurais é a estimativa de quantos Neurônios a Rede terá, visto que não existe na literatura um teorema que diga qual o modelo ideal para cada tipo de problema, é uma escolha empírica. Para ajudar na escolha do modelo de Rede, foi usado o algoritmo K-fold, que é um algoritmo de validação cruzada que tem como objetivo ajudar a estimar parâmetros do modelo final usando os dados disponíveis de treino disponíveis \cite{bengio2004no}.
+ 
+  Para executar o K-fold, é preciso primeiro selecionar a quantidade de dados que serão reservados para teste e a quantidade de dados que serão reservados para treinamento do modelo, onde usualmente a escolha gira entre algo em torno de 20\% dos dados disponíveis para teste e 80\% dos dados disponíveis para treinamento.
+  
+  Com os dados de treinamento selecionados, é preciso escolher um número $k \in \mathbb{N}$, nesse caso o número 10 foi escolhido. Como $K$ escolhido foi 10, os dados de treino devem ser divididos em 10 partes iguais, de modo aleatório, cada uma dessas partes é chamada de um fold. Assim, uma parte entre os k-folds é selecionada e reservada. A rede é treinada com os k-1 folds restantes e validada com a parte escolhida no inicio. O procedimento é repetido para todos os k-folds, onde sempre é armazenado o valor da acurácia e do desvio padrão de cada fold usado como validação. A ideia central é que o k-fold deve ser executado variando o número de Neurônios na rede até um valor definido, onde o modelo de rede escolhido será o que obtiver o menor desvio padrão ou a maior acurácia. A próxima seção especificará a metodologia utilizada neste trabalho.
+
+\subsection{Metodologia}
+
+Nesta seção de metodologia será explicado o passo a passo de como foi escolhido o modelo da rede a usar os parâmetros da rede, pesos da rede, pre-processamento dos dados até o teste final que resultou na acurácia obtida neste trabalho. Para isso, foram utilizadas duas metodologias, que serão apresentadas a seguir: a primeira utilizando os dados de treinamento para selecionar o modelo; a segunda apresentará a metologia para avaliação do resultado para a acurácia obtida nesse trabalho.
+
+Como base para as próximas duas seções utilizaremos 80\% da base de dados como treinamento e 20\% da base de dados como teste, de modo a seguir a mesma promoção do trabalho \cite{mcnally2016predicting}, que será usado como comparação principal neste trabalho.
+
+\subsubsection{Tipos de base de dados utilizados}
+
+Na análise deste trabalho foram utilizados três tipos de base de dados, baseados no valor do preço do Bitcoin e no valor referentes aos dados do Google Trends, obtidos no período de 19 de Agosto de 2013 até 19 de Julho de 2016, mesmo período utilizado no trabalho \cite{mcnally2016predicting}.
+
+Os três tipos de base de dados utilizados neste trabalho são:
+\begin{enumerate}
+
+    \item Dados do valor do preço de Bitcon: foram separadas 14 bases de dados, onde cada base de dados $X_{Bitcoin}^{(n)}$ contém n valores com o preço do Bitcoin por linha, com frequência de um dia, e no final de cada linha o valor 1 se o preço no dia seguinte aumentou e 0 se o preço diminuiu, de modo que cada linha tivesse $n+1$ valores, $n$ valores do preço e 1 valor da previsão;
+    
+    \item Dados do valor do Google Trends do Bitcon: foram separadas 14 bases de dados, onde cada base de dados $X_{GTrends}^{(n)}$ contém n valores do Google Trends do Bitcoin por linha, com frequência de um dia, e no final de cada linha o valor 1 se o preço no dia seguinte aumentou e 0 se o preço diminuiu, de modo que cada linha tivesse $n+1$ valores, $n$ valores do Google Trends e 1 valor da previsão;
+    
+    \item Dados do valor do preço do Bitcoin concatenado com o valor do Google Trends do Bitcon: foram separadas 7 bases de dados, onde cada base de dados $X_{Mix}^{(n)}$ contém $2n+1$ valores, $n$ valores do preço do Bitcoin concatenados com $n$ valores do Google Trends do Bitcoin por linha, com frequência de um dia, e no final de cada linha o valor 1 se o preço no dia seguinte aumentou e 0 se o preço diminuiu. Na base de dado $X_{Mix}^{(n)}$ foram utilizadas apenas 7 bases de dados para não ultrapassar a quantidade de dados nos dois outros tipos de dados.
+    
+\end{enumerate}
+
+\subsubsection{Seleção de modelos}
+
+ A seleção de modelos é a parte onde será definido o modelo da rede que será usado, utilizando apenas os dados de treinamento. Foi defino um modelo de rede padrão para esse trabalho, pela quantidade de dados disponíveis para treinamento de rede, de três camadas. Em geral, redes com mais camadas só fazem sentido se existirem muitos dados para o treinamento \bac{ref}, como os dados para esse trabalho se limitaram ao intervalo usado em \cite{mcnally2016predicting}, só existem 1065 linhas de dados do preço do Bitcoin, esse número é considerado pequeno para uma rede com muitas camadas \bac{ref}. Na mesma linha de pensamento, foi defino a quantidade máxima de Neurônios na segunda camada de 14 Neurônios, por não existir dados suficientes que justifiquem mais Neurônios.
+ 
+ O modelo base de rede portanto foi definido assim:
+ 
+ \begin{itemize}
+     \item primeira camada a mesma quantidade de Neurônios que de dados de entrada. A função de ativação utilizada nessa camada será a Tangente Hiperbólica;
+     \item segunda camada com até 14 Neurônios. A função de ativação utilizada nessa camada será a Tangente Hiperbólica;
+     \item terceira e última camada 1 Neurônio. A função de ativação utilizada nessa camada será a Sigmoide, que retornará 0 ou 1.
+ \end{itemize}
+ 
+
+Essa metodologia foi executada para todos os três tipos de base de dados. A seguir a metodologia utilizada:
+ 
+ \begin{algorithm}[H]
+   \SetAlgoLined
+   \Entrada{$\mathbf{X, Y}$} 
+    \Saida{Desvio Padrão, Acurácia}
+    
+    \Inicio{
+        \Se{tipo$=X_{Mix}$}{
+            $ max_n \coloneqq 7$\\
+        }
+        \Se{tipo$\neq X_{Mix}$}{
+             $ max_n \coloneqq 14$\\
+        }
+             
+       \Para{i = 1 ; $max_n$}{
+            \Para{j = 1 ; i}{
+                $X_z \coloneqq PCA(X, j)$\\
+                $folds = Kfold(n_splits=10)$\\
+                \Para{$n_neuronios = 1$ ; 14}{
+                    \Para{treinamento, teste em folds}{
+                    
+                        crie modelo da Rede Neural 3 camadas, $i$ Neurônio(s) na primeira camada, $n_neuronios$ na segunda camada e $1$ Neurônio na última camada\\
+                        treine a rede\\
+                        avalie o modelo\\
+                        imprima o desvio padrão e a acurácia\\
+                        
+                    }
+                }
+            }
+        }
+  }
+  
+   \Retorna{$\Theta$}
+   \label{alg:selecao_modelo}
+   \caption{\textsc{Algoritmo de Seleção de modelo }}
+ \end{algorithm}
+ 
+Esse algoritmo foi o algoritmo utilizado para selecionar os melhores modelos. Com Esses dados disponíveis, o algoritmo de teste de modelo usará os melhores modelos para estimar o resultado preciso, evitando que a inicialização da rede influencie muito o resultado.
+
+\subsubsection{Teste do modelo}
+
+O algoritmo de teste de modelo foi pensado para testar os melhores modelos do algoritmo de seleção de modelo. Nesse algoritmo foram utilizado os dados de testes, com objetivo de simular o comportamento real do modelo escolhido.
+
+A ideal desse algoritmo é realizar dois \textit{ensemble}, que é uma técnica que utiliza várias redes para resolver o mesmo problema \bac{ref}, tornando o resultado mais preciso. O \textit{ensemble} funciona executando várias redes (idealmente um número ímpar de redes), com modelos iguais e inicialização dos pesos diferentes.  Ao executar a previsão, as respostas de cada rede são ordenadas e escolhida a mediana das respostas como resposta final. Essa técnica costuma ter performance melhor que uma rede só, por usar a mediana de várias redes, reduzindo o viés oriundo da inicialização.
+
+Essa técnica foi aplicada em dois contextos no teste do modelo:
+
+\begin{enumerate}
+    \item Ensamble de modelo: tendo em vista os resultados da seleção de modelo, foram escolhidos os 7 modelos com menos desvio padrão para o Ensamble;
+    \item Ensamble de resultado: para cada modelo do Ensamble de modelo é criado 7 Redes Neurais com mesma arquitetura e inicialização diferente. Todas as 7 Redes Neurais são treinadas e testadas, onde o resultado do modelo passa ser a mediana dos resultados de todas as Redes.
+\end{enumerate}
+
+Após executar os dois Ensambles, são obtidos os resultados que serão considerados para esse trabalho. No próximo capítulo serão apresentados os resultados do trabalho, obtidos com as metodologias aqui descritas.

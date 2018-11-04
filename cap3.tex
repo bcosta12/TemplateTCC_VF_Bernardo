@@ -1,0 +1,237 @@
+\section{Pré-processamento}
+
+\subsection{Base de Dados}
+\label{subsec:base_de_dados}
+ Com o objetivo de alimentar o modelo proposto foram utilizados dois tipos de dados: o do valor do preço do Bitcoin, fornecidos pela Coinbase \cite{Coinbase}, e o do valor do Google Trends, fornecidos pelo próprio Google. Com esses dados foi possível criar os dados que treinaram e testaram o modelo proposto.
+ 
+Para comparar os resultados obtidos com o o resultados apresentados no trabalho \cite{wilson_yelowitz_2014}, foram utilizados dados no do dia 19 de Agosto de 2013 até 19 de Julho de 2016, que é o mesmo intervalo utilizado pelo trabalho \cite{wilson_yelowitz_2014}.
+ 
+ Os gráficos dos dados utilizados, tanto do valor do preço do Bitcoin como do valor do Google Trends, podem ser vistos na Figura \ref{fg:comparacao_btc}
+ 
+ \subsection{Normalização}
+ \label{subsec:normalizacao}
+A normalização dos dados é uma técnica utilizada antes dos dados serem inseridos para a Rede Neural. Essa técnica consiste em subtrair cada amostra original pela média das amostras e dividir pelo desvio padrão das amostras. O objetivo dessa técnica é suavizar os dados, ou seja, remover picos, ou anomalias, dos dados \cite{quackenbush2002microarray}
+
+A equação utilizada para a normalização pode ser vista na Eq. \ref{fun:normalizacao}, onde: $x$ é o valor original; $\overline{m}$ é média da coluna referente a amostra; e $\sigma$ é o desvio padrão da coluna referente a amostra.
+
+\begin{equation}
+    \label{fun:normalizacao}
+ \mathbf{X'} = (\mathbf{X}-\overline{m})/\sigma
+\end{equation}
+
+Para exemplificar o que a técnica de normalização faz com o dados, os gráficos dos dados normalizados, tanto do valor do preço do Bitcoin como do valor do Google Trends, podem ser vistos na Figura \ref{fg:comparacao_btc_n}.
+
+\subsection{PCA}
+
+O PCA, do inglês \textit{Principal Component Analysis}, é um algoritmo que tem como objetivo principal reduzir a dimensão dos dados, de modo a manter suas informações, aliviando assim a necessidade de poder de processamento para computar a mesma informação. De modo mais genérico, o PCA permite reduzir a dimensão de uma base de dados de $d$ para dimensão $d'$, onde $0<d'<=d$ \cite{Jolliffe}
+
+Para realizar a redução na dimensão dos dados mantendo a essência da informação, o PCA busca relacionar os pontos da base de dados de dimensão $d$ com um espaço de dimensão $d'$, representando os dados no espaço menor que o original. Por exemplo: considere uma base de dados de dimensão igual a $2$ que contém diversos pontos $P_n$. Para reduzir a dimensão desses dados para $1$, o algoritmo do PCA traça a reta (que tem uma dimensão igual a $1$, ou seja, menor que a dimensão original) que minimiza a distância de cada um dos pontos $P_n$ até essa reta. Traçada essa reta, é preciso mapear cada um dos pontos $P_n$ na reta, para isso, o Algoritmo marca na reta o ponto que tiver a menor distância para cada ponto $P_n$, que será a sua nova representação. O término desse processo, os dados estarão representados em uma base de dados com uma dimensão a menos que a base de dados original. O mesmo processo é realizado para reduzir uma base de dados de $3$ para $2$ dimensões, o espaço de $3$ dimensões é mapeado em um plano de duas dimensões. Generalizando, o algoritmo do PCA mapeia pontos de uma base de dados de dimensão $d$ para dimensão $d'$, onde $0<d'<=d$, calculando a menor distância entre os pontos originais e o espaço com dimensão inferior, sucessivamente até a dimensão $d'$ requerida. 
+
+O algoritmo PCA se baseia na premissa de que os dados estão normalizados, então é preciso executar a normalização apresentada na seção \ref{subsec:normalizacao}. Feito isso, é possível aplicar uma série de operações matemáticas com os dados, apresentadas no algoritmo do PCA. A prova matemática desse algoritmo para o cálculo do PCA foge ao escopo deste trabalho, mas pode ser encontrada em \cite{Jolliffe}.
+
+O Algoritmo abaixo apresenta os passos para o cálculo do PCA, recebendo como entrada a base de dados original, $\mathbf{X}$, e a dimensão desejada, $d'$. O Algoritmo executa os seguintes passos:  
+\begin{enumerate}
+    \item calcula-se a dimensão de $\mathbf{X}$, $d$;
+    \item calcula-se a matriz de covariância, $\Sigma$;
+    \item calcula-se o autovalor, $mathbf{U}$, de $\Sigma$;
+    \item seleciona-se as $d'$ primeiras colunas da $mathbf{U}$, que chamaremos de $\mathbf{U_{reduzido}}$;
+    \item calcula-se a resposta, $z$, que é a multiplicação de $\mathbf{U_{reduzido}}^T $ e a base original, $\mathbf{X}$.
+\end{enumerate}
+
+Como é provado matematicamente em \cite{Jolliffe}, com essas operações obtém-se o PCA. 
+
+\begin{center}
+ \begin{algorithm}[H]
+   \SetAlgoLined
+   \Entrada{$\mathbf{X}, d'$} 
+   \Saida{$z$}
+   \Inicio{
+   $d = dim(\mathbf{X})$\\
+   $\Sigma = \frac{1}{d} *  \mathbf{X}^T * \mathbf{X}$\\
+   $ \mathbf{U} = autovalor(\Sigma)$\\
+   $  \mathbf{U_{reduzido}} =  \mathbf{U}[:,1:d']$\\
+   $  \mathbf{z} = \mathbf{U_{reduzido}}^T * \mathbf{X}$\\
+   
+   }
+   \Retorna{$\mathbf{z}$}
+   \label{alg:PCA1}
+   \caption{\textsc{Algoritmo do PCA }}
+ \end{algorithm}
+\end{center}
+
+Para ilustrar o funcionamento do PCA, vamos considerar os dados referentes ao valor do preço do Bitcoin e do Google Trends, apresentados na seção \ref{subsec:base_de_dados}. Essas bases de dados serão concatenadas para formar um gráfico com 3 dimensões. Logo, os dados consistem em uma lista de valores, onde a primeira coluna corresponde a data, a segunda ao valor do preço do Bitcoin e a terceira ao valor do Google Trends. Um gráfico em duas dimensões exibindo as duas listas de valores é apresentada na Figura \ref{gr:2d}. 
+
+Com os dados anteriores, foi executado o algoritmo do PCA com $c=2$, reduzindo a dimensão dos dados para 1. A Figura \ref{gr:1d} apresenta o gráfico resultante do PCA.
+
+Na próxima seção serão apresentados os algoritmos e a metodologia utilizada no trabalho. 
+
+\newpage
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+	\begin{figure}[H]
+
+
+	\begin{subfigure}{15cm}
+		
+		\begin{tikzpicture}
+
+		\begin{axis}[
+		    date coordinates in=x,
+		    xticklabel={\day-\month-\year},
+		    x tick label style={rotate=45,anchor=north east},
+		    date ZERO=2013-08-19,
+		    xmin=2013-08-19, xmax=2016-07-19,
+		    ymin=0,ymax=1102,
+		    height=8cm,
+			width=14cm,
+			grid=major,
+		    xlabel={Data (dia-mês-ano)},
+		    ylabel={Valor em dólares},
+		]
+		\addlegendentry{Preço BTC}
+		\addplot [blue, mark=*] table [x=date, y=value, col sep=comma] {price.csv};
+		\end{axis}
+		\end{tikzpicture}
+        \caption{Valor do preço do Bitcoin}\label{gr:btc}
+	\end{subfigure}
+	%sub fig 2
+	\begin{subfigure}{15cm}
+		\begin{tikzpicture}
+
+		\begin{axis}[
+			title={Valor Bitcoin no Google Trends}, 
+		    date coordinates in=x,
+		    xticklabel={\day-\month-\year},
+		    x tick label style={rotate=45,anchor=north east},
+		    xmin=2013-08-19, xmax=2016-07-19,
+		    ymin=0,ymax=249,
+		    height=8cm,
+			width=14cm,
+			grid=major,
+		    xlabel={Data (dia-mês-ano)},
+		    ylabel={Valor \%},  
+		]
+		\addlegendentry{Trends BTC}
+		\addplot [red, mark=*] table [x=date, y=bitcoin, col sep=comma] {gt.csv};
+		\end{axis}
+		\end{tikzpicture}
+    	\caption{Valor do Bitcoin.}\label{gr:litecoin_gtrends_12m}
+	\end{subfigure}
+    \caption{Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends} no mesmo período utilizado no trabalho \cite{wilson_yelowitz_2014}}\label{fg:comparacao_btc_n}
+	\end{figure}
+\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+	\begin{figure}[H]
+
+
+	\begin{subfigure}{15cm}
+		
+		\begin{tikzpicture}
+
+		\begin{axis}[
+		    date coordinates in=x,
+		    xticklabel={\day-\month-\year},
+		    x tick label style={rotate=45,anchor=north east},
+		    date ZERO=2013-08-19,
+		    xmin=2013-08-19, xmax=2016-07-19,
+		    ymin=-2,ymax=3.7,
+		    height=8cm,
+			width=14cm,
+			grid=major,
+		    xlabel={Data (dia-mês-ano)},
+		    ylabel={Valor em dólares},
+		]
+		\addlegendentry{Preço BTC}
+		\addplot [blue, mark=*] table [x=date, y=value, col sep=comma] {price_n.csv};
+		\end{axis}
+		\end{tikzpicture}
+        \caption{Valor do preço do Bitcoin Normalizados}\label{gr:btc_normalizado}
+	\end{subfigure}
+	%sub fig 2
+	\begin{subfigure}{15cm}
+		\begin{tikzpicture}
+
+		\begin{axis}[
+			title={Valor Bitcoin no Google Trends Normalizados}, 
+		    date coordinates in=x,
+		    xticklabel={\day-\month-\year},
+		    x tick label style={rotate=45,anchor=north east},
+		    xmin=2013-08-19, xmax=2016-07-19,
+		    ymin=-2,ymax=8.4,
+		    height=8cm,
+			width=14cm,
+			grid=major,
+		    xlabel={Data (dia-mês-ano)},
+		    ylabel={Valor \%},  
+		]
+		\addlegendentry{Trends BTC}
+		\addplot [red, mark=*] table [x=date, y=bitcoin, col sep=comma] {gt_n.csv};
+		\end{axis}
+		\end{tikzpicture}
+    	\caption{Valor do Bitcoin.}\label{gr:btc_gtrends_n}
+	\end{subfigure}
+    \caption{Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends} normalizados, no mesmo período utilizado no trabalho \cite{wilson_yelowitz_2014}}\label{fg:comparacao_btc_normalizado}
+	\end{figure}
+\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{center}
+	\begin{figure}[H]
+
+
+	\begin{subfigure}{15cm}
+		
+		\begin{tikzpicture}
+
+		\begin{axis}[
+		    date coordinates in=x,
+		    xticklabel={\day-\month-\year},
+		    x tick label style={rotate=45,anchor=north east},
+		    date ZERO=2013-08-19,
+		    xmin=2013-08-19, xmax=2016-07-19,
+		    ymin=-2,ymax=8,
+		    height=8cm,
+			width=14cm,
+			grid=major,
+		    xlabel={Data (dia-mês-ano)},
+		    ylabel={Valor em dólares},
+		]
+		\addlegendentry{Trends BTC}
+		\addplot [blue, mark=*] table [x=date, y=gtrends, col sep=comma] {2d.csv};
+		\addlegendentry{Preço BTC}
+		\addplot [red, mark=*] table [x=date, y=bitcoin, col sep=comma] {2d.csv};
+		\end{axis}
+		\end{tikzpicture}
+        \caption{Valor do preço do Bitcoin e do Google Trends Normalizados}\label{gr:2d}
+	\end{subfigure}
+	%sub fig 2
+	\begin{subfigure}{15cm}
+		\begin{tikzpicture}
+
+		\begin{axis}[
+			title={Valor Bitcoin no Google Trends Normalizados}, 
+		    date coordinates in=x,
+		    xticklabel={\day-\month-\year},
+		    x tick label style={rotate=45,anchor=north east},
+		    xmin=2013-08-19, xmax=2016-07-19,
+		    ymin=-350,ymax=700,
+		    height=8cm,
+			width=14cm,
+			grid=major,
+		    xlabel={Data (dia-mês-ano)},
+		    ylabel={Valor},  
+		]
+		\addlegendentry{PCA com BTC e Trends}
+		\addplot [purple, mark=*] table [x=date, y=mix, col sep=comma] {1d.csv};
+		\end{axis}
+		\end{tikzpicture}
+    	\caption{Resultado do PCA nos dados do Bitcoin e Google Trends.}\label{gr:1d}
+	\end{subfigure}
+    \caption{Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends} normalizados concatenados, com o resultado dos mesmos dados após o PCA com $n=2$, no mesmo período utilizado no trabalho \cite{wilson_yelowitz_2014}}\label{fg:comparacao_btc}
+	\end{figure}
+\end{center}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
