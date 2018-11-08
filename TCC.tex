@@ -28,6 +28,7 @@
 \usepackage{wrapfig, graphics,multirow}
 \usepackage{array}
 \usepackage{pdfpages}
+\usetikzlibrary{matrix}
 \usepackage{enumitem,comment}  
 \usepackage[titletoc,title]{appendix}
 \renewcommand{\cfttoctitlefont}{\hspace*{\fill}\large\bfseries\MakeUppercase}
@@ -55,6 +56,7 @@
 \renewcommand{\listtablename}{LISTA TABELAS} 
 \renewcommand{\listfigurename}{LISTA  FIGURAS}
 
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
 
 
 \usepackage{color, colortbl}

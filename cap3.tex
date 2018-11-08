@@ -6,26 +6,26 @@
  
 Para comparar os resultados obtidos com o o resultados apresentados no trabalho \cite{wilson_yelowitz_2014}, foram utilizados dados no do dia 19 de Agosto de 2013 até 19 de Julho de 2016, que é o mesmo intervalo utilizado pelo trabalho \cite{wilson_yelowitz_2014}.
  
- Os gráficos dos dados utilizados, tanto do valor do preço do Bitcoin como do valor do Google Trends, podem ser vistos na Figura \ref{fg:comparacao_btc}
+ Os gráficos dos dados utilizados, tanto do valor do preço do Bitcoin como do valor do Google Trends, podem ser vistos na Figura \ref{fg:comparacao_btc}.
  
  \subsection{Normalização}
  \label{subsec:normalizacao}
-A normalização dos dados é uma técnica utilizada antes dos dados serem inseridos para a Rede Neural. Essa técnica consiste em subtrair cada amostra original pela média das amostras e dividir pelo desvio padrão das amostras. O objetivo dessa técnica é suavizar os dados, ou seja, remover picos, ou anomalias, dos dados \cite{quackenbush2002microarray}
+A normalização dos dados é uma técnica utilizada antes dos dados serem inseridos para a Rede Neural. Essa técnica consiste em subtrair cada amostra original pela média das amostras e dividir pelo desvio padrão das amostras. O objetivo dessa técnica é suavizar os dados, ou seja, remover picos, ou anomalias, dos dados \cite{quackenbush2002microarray}. Ademais, ela é essencial para evitar saturações nos valores de saída dos neurônios das camadas intermediárias.
 
-A equação utilizada para a normalização pode ser vista na Eq. \ref{fun:normalizacao}, onde: $x$ é o valor original; $\overline{m}$ é média da coluna referente a amostra; e $\sigma$ é o desvio padrão da coluna referente a amostra.
+A equação utilizada para a normalização pode ser vista em \eqref{fun:normalizacao}, onde: $x$ é o valor original; $\overline{m}$ é média da coluna referente a amostra; e $\sigma$ é o desvio padrão da coluna referente a amostra. \dbh{você poderia mostrar o cálculo do desvio padrão}
 
 \begin{equation}
     \label{fun:normalizacao}
- \mathbf{X'} = (\mathbf{X}-\overline{m})/\sigma
+ \mathbf{X'} = (\mathbf{X}-\overline{m})/\sigma.
 \end{equation}
 
 Para exemplificar o que a técnica de normalização faz com o dados, os gráficos dos dados normalizados, tanto do valor do preço do Bitcoin como do valor do Google Trends, podem ser vistos na Figura \ref{fg:comparacao_btc_n}.
 
 \subsection{PCA}
 
-O PCA, do inglês \textit{Principal Component Analysis}, é um algoritmo que tem como objetivo principal reduzir a dimensão dos dados, de modo a manter suas informações, aliviando assim a necessidade de poder de processamento para computar a mesma informação. De modo mais genérico, o PCA permite reduzir a dimensão de uma base de dados de $d$ para dimensão $d'$, onde $0<d'<=d$ \cite{Jolliffe}
+O PCA, do inglês \textit{Principal Component Analysis}, é um algoritmo que tem como objetivo principal reduzir a dimensão dos dados, de modo a perder o mínimo de informações, aliviando assim a necessidade de poder de processamento para computar a mesma informação. De modo mais genérico, o PCA permite reduzir a dimensão de uma base de dados de $d$ para dimensão $d'$, onde $0<d'<=d$ \cite{Jolliffe}. O PCA empreende uma projeção num subespaço de dimensão inferior, cuja distância quadrática média é mínima (em termos de projeções lineares). O fato de as componentes oriundas da decomposição PCA serem descorrelacionadas também concorre para melhorar o processo de aprendizado da rede neural.
 
-Para realizar a redução na dimensão dos dados mantendo a essência da informação, o PCA busca relacionar os pontos da base de dados de dimensão $d$ com um espaço de dimensão $d'$, representando os dados no espaço menor que o original. Por exemplo: considere uma base de dados de dimensão igual a $2$ que contém diversos pontos $P_n$. Para reduzir a dimensão desses dados para $1$, o algoritmo do PCA traça a reta (que tem uma dimensão igual a $1$, ou seja, menor que a dimensão original) que minimiza a distância de cada um dos pontos $P_n$ até essa reta. Traçada essa reta, é preciso mapear cada um dos pontos $P_n$ na reta, para isso, o Algoritmo marca na reta o ponto que tiver a menor distância para cada ponto $P_n$, que será a sua nova representação. O término desse processo, os dados estarão representados em uma base de dados com uma dimensão a menos que a base de dados original. O mesmo processo é realizado para reduzir uma base de dados de $3$ para $2$ dimensões, o espaço de $3$ dimensões é mapeado em um plano de duas dimensões. Generalizando, o algoritmo do PCA mapeia pontos de uma base de dados de dimensão $d$ para dimensão $d'$, onde $0<d'<=d$, calculando a menor distância entre os pontos originais e o espaço com dimensão inferior, sucessivamente até a dimensão $d'$ requerida. 
+Para realizar a redução na dimensão dos dados mantendo a essência da informação, o PCA busca relacionar os pontos da base de dados de dimensão $d$ com um espaço de dimensão $d'$, representando os dados num espaço de dimensão menor do que a do espaço original. Por exemplo: considere uma base de dados de dimensão igual a $2$ que contém diversos pontos $P_n$. Para reduzir a dimensão desses dados para $1$, o algoritmo do PCA traça a reta (que tem uma dimensão igual a $1$, ou seja, menor que a dimensão original) que minimiza a distância de cada um dos pontos $P_n$ até essa reta. Traçada essa reta, é preciso mapear cada um dos pontos $P_n$ na reta. Para isso, o algoritmo marca na reta o ponto que tiver a menor distância para cada ponto $P_n$, que será a sua nova representação. Ao término desse processo, os dados estarão representados em uma base de dados com uma dimensão inferior à da base de dados original. O mesmo processo é realizado para reduzir uma base de dados de $3$ para $2$ dimensões. Neste caso, o espaço de $3$ dimensões é mapeado em um plano de duas dimensões. Generalizando, o algoritmo PCA mapeia pontos de uma base de dados de dimensão $d$ para dimensão $d'$, onde $0<d'<=d$, calculando a menor distância entre os pontos originais e o espaço com dimensão inferior, sucessivamente até a dimensão $d'$ requerida. 
 
 O algoritmo PCA se baseia na premissa de que os dados estão normalizados, então é preciso executar a normalização apresentada na seção \ref{subsec:normalizacao}. Feito isso, é possível aplicar uma série de operações matemáticas com os dados, apresentadas no algoritmo do PCA. A prova matemática desse algoritmo para o cálculo do PCA foge ao escopo deste trabalho, mas pode ser encontrada em \cite{Jolliffe}.
 
@@ -33,12 +33,12 @@ O Algoritmo abaixo apresenta os passos para o cálculo do PCA, recebendo como en
 \begin{enumerate}
     \item calcula-se a dimensão de $\mathbf{X}$, $d$;
     \item calcula-se a matriz de covariância, $\Sigma$;
-    \item calcula-se o autovalor, $mathbf{U}$, de $\Sigma$;
-    \item seleciona-se as $d'$ primeiras colunas da $mathbf{U}$, que chamaremos de $\mathbf{U_{reduzido}}$;
-    \item calcula-se a resposta, $z$, que é a multiplicação de $\mathbf{U_{reduzido}}^T $ e a base original, $\mathbf{X}$.
+    \item calcula-se o autovalor, $\mathbf{U}$, de $\Sigma$;
+    \item seleciona-se as $d'$ primeiras colunas de $\mathbf{U}$, as quais denominaremos de $\mathbf{U}_{\text{reduzido}}$;
+    \item calcula-se a resposta, $z$, que é a multiplicação de $\mathbf{U}_{\text{reduzido}}^T$ e a base original ($\mathbf{X}$).
 \end{enumerate}
 
-Como é provado matematicamente em \cite{Jolliffe}, com essas operações obtém-se o PCA. 
+Como é provado matematicamente em \cite{Jolliffe}, com essas operações obtém-se o PCA (vide Algoritmo \ref{alg:PCA1}). 
 
 \begin{center}
  \begin{algorithm}[H]
@@ -46,9 +46,9 @@ Como é provado matematicamente em \cite{Jolliffe}, com essas operações obtém
    \Entrada{$\mathbf{X}, d'$} 
    \Saida{$z$}
    \Inicio{
-   $d = dim(\mathbf{X})$\\
+   $d = \text{dim}(\mathbf{X})$\\
    $\Sigma = \frac{1}{d} *  \mathbf{X}^T * \mathbf{X}$\\
-   $ \mathbf{U} = autovalor(\Sigma)$\\
+   $ \mathbf{U} = \text{autovalores}(\Sigma)$\\
    $  \mathbf{U_{reduzido}} =  \mathbf{U}[:,1:d']$\\
    $  \mathbf{z} = \mathbf{U_{reduzido}}^T * \mathbf{X}$\\
    
@@ -69,7 +69,7 @@ Na próxima seção serão apresentados os algoritmos e a metodologia utilizada 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{center}
 	\begin{figure}[H]
-    \caption{Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends} no mesmo período utilizado no trabalho \cite{wilson_yelowitz_2014}}\label{fg:comparacao_btc_n}
+    \caption[Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends}]{Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends}, no mesmo período utilizado no trabalho \cite{wilson_yelowitz_2014}}\label{fg:comparacao_btc_n}
 
 	\begin{subfigure}{}
 		
@@ -129,7 +129,8 @@ Na próxima seção serão apresentados os algoritmos e a metodologia utilizada 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{center}
 	\begin{figure}[H]
-    \caption{Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends} normalizados, no mesmo período utilizado no trabalho \cite{wilson_yelowitz_2014}}\label{fg:comparacao_btc_normalizado}
+    \caption[Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends} normalizados]{Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends} normalizados, no mesmo período utilizado no trabalho
+    \cite{wilson_yelowitz_2014}}\label{fg:comparacao_btc_normalizado}
 
 	\begin{subfigure}{}
 		
@@ -188,7 +189,7 @@ Na próxima seção serão apresentados os algoritmos e a metodologia utilizada 
  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{center}
 	\begin{figure}[H]
-    \caption{Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends} normalizados concatenados, com o resultado dos mesmos dados após o PCA com $n=2$, no mesmo período utilizado no trabalho \cite{wilson_yelowitz_2014}}\label{fg:comparacao_btc}
+    \caption[Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends} normalizados concatenados, com o resultado dos mesmos dados após o PCA com $n=2$]{Comparação dos gráficos do valor do Bitcoin e do \textit{Google Trends} normalizados concatenados, com o resultado dos mesmos dados após o PCA com $n=2$, no mesmo período utilizado no trabalho \cite{wilson_yelowitz_2014}}\label{fg:comparacao_btc}
 
 	\begin{subfigure}{}
 		

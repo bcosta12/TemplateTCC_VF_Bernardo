@@ -7,10 +7,10 @@ Séries temporais são definidas como ``qualquer conjunto de observações orden
  \subsection{Tipos de Séries Temporais}
  Existem séries temporais \textit{discretas} e \textit{contínuas}. As discretas costumam ser obtidas através de amostragem de uma série contínua a intervalos de tempo regulares \cite{morettin2006analise,hyndman2018forecasting}. Por exemplo, para analisar a série do valor da temperatura de uma cidade ao longo de um ano, será preciso amostrá-la a intervalos, obtendo uma lista de valores. Esse processo converte uma série contínua em uma série discreta.
 
-Os estudos de séries temporais estão geralmente relacionados a dois domínios: o domínio do tempo e o domínio da frequência. Ambos os enfoques estão interessados em construir modelos para séries. Os modelos no domínio do tempo em geral são paramétricos, ou seja, têm um número finito de parâmetros \cite{conover1981rank}. Já os modelos no domínio da frequência são classificados como não-paramétricos \cite{hollander1999nonparametric}. Em termos mais rigorosos, modelos paramétricos são aqueles que assumem um conjunto finito de parâmetros que cumpre estimar, o que limita a complexidade do modelo mesmo quando a informação contida nos dados é arbitrariamente grande. Já os modelos não paramétricos assumem que a distribuição dos dados depende de um conjunto de parâmetros de dimensionalidade infinita. Estes modelos capturam mais informação dos dados à medida que a disponibilidade de informação aumenta, o que os torna mais flexíveis \cite{ChenNeural2001}.
+Os estudos de séries temporais estão geralmente relacionados a dois domínios: o domínio do tempo e o domínio da frequência. Ambos os enfoques são capazes de construir modelos para séries. Os modelos no domínio do tempo em geral são paramétricos, ou seja, apresentam um número finito de parâmetros \cite{conover1981rank}. Já os modelos no domínio da frequência são classificados como não-paramétricos \cite{hollander1999nonparametric}. Em termos mais rigorosos, modelos paramétricos são aqueles que assumem um conjunto finito de parâmetros que cumpre estimar, o que limita a complexidade do modelo mesmo quando a informação contida nos dados é arbitrariamente grande. Já os modelos não paramétricos assumem que a distribuição dos dados depende de um conjunto de parâmetros de dimensionalidade infinita. Estes modelos capturam mais informação dos dados à medida que a disponibilidade de informação aumenta, o que os torna mais flexíveis \cite{ChenNeural2001}.
  
 \subsection{Notação}
-Este trabalho interpretará uma série temporal como um vetor, cujos elementos consistem de amostras no tempo $t$. Admitindo um total de $r$ elementos, podemos definir o vetor $\boldsymbol{z}(t) \in \mathbb{R}^n$ que contém uma série temporal como
+Este trabalho interpretará uma série temporal como um vetor, cujos elementos consistem de amostras no tempo $t$. Admitindo um total de $n$ elementos, podemos definir o vetor $\boldsymbol{z}(t) \in \mathbb{R}^n$ que contém uma série temporal como
 \begin{equation}
 \boldsymbol{z}(t) \triangleq \begin{bmatrix}z(t_1) & z(t_2) & \ldots & z(t_n)\end{bmatrix}.
 \end{equation}
@@ -22,13 +22,11 @@ Este trabalho interpretará uma série temporal como um vetor, cujos elementos c
 
  A transformação mais comum consiste em tomar diferenças sucessivas da série original. Esta técnica é conhecida como diferenciação. Seu objetivo consiste em ajudar a estabilizar a média de uma série temporal, removendo as alterações bruscas no nível de uma série temporal e, portanto, eliminando (ou reduzindo) a tendência e a sazonalidade \cite{morettin2006analise, hyndman2018forecasting}.
  
-
- 
- A primeira diferença é definida por:
+O sinal denotado por ``diferença primeira'' é definido por:
 \begin{equation} 
 \delta_1(t) \triangleq z(t) - z(t - 1),
 \end{equation}
-para $t \in \{2,\ldots,r\}$. A sequência obtida pela segunda diferença pode ser descrita como
+para $t \in \{2,\ldots,n\}$. A sequência obtida pela segunda diferença pode ser descrita como
 \begin{equation}
 \delta_2(t) = \delta_1\{\delta_1(t)\} = \delta_1[z(t) - z(t - 1)],
 \end{equation}
@@ -55,9 +53,9 @@ O processamento de séries temporais, em geral, é empregado para realizarmos pr
 
 \subsection{Previsão em Séries Temporais}
 
-O problema de previsão é um dos principais objetivos da análise de séries temporais. Prever o(s) próximo(s) valor(es) de uma série utilizando valores pregressos é um problema que pode ser usado em diversas aplicações, sendo amplamente explorado na literatura \cite{weigend2018time}. Tal técnica é de grande interesse nas mais distintas áreas, com resultados que auxiliam o processo de tomada de decisão \cite{morettin2006analise, hyndman2018forecasting}. Neste trabalho estaremos interessados no problema de previsão de valores de uma cripto-moeda, o Bitcoin \cite{nakamoto2008bitcoin}, cujo problema será explicado nas próximas subseções.
+O problema de previsão é um dos principais objetivos da análise de séries temporais. Prever o(s) próximo(s) valor(es) de uma série se valendo de valores pregressos é um problema que pode ser empregado em diversas aplicações, sendo amplamente explorado na literatura \cite{weigend2018time}. Tal técnica é de grande interesse nas mais distintas áreas, com resultados que auxiliam o processo de tomada de decisão \cite{morettin2006analise, hyndman2018forecasting}. Neste trabalho estaremos interessados no problema de previsão de valores de uma cripto-moeda, o Bitcoin \cite{nakamoto2008bitcoin}, cujo problema será descrito nas próximas subseções.
 
-O problema de previsão de séries temporais pode ser descrito como encontrar o valor da série temporal $z(t)$ no instante $t + h$, onde $t$ é o instante de origem e $h$ o \textit{horizonte}. Por exemplo, considere que a série temporal $z(t)$ representa os valores do real frente ao dólar e que suas amostras estão espaçadas no período de um dia. Se quisermos prever o valor do próximo dia do Real frente ao Dólar, teremos $h = 1$ e calcularemos $z(t + 1)$ . Se quisermos prever o valor do real frente ao Dólar na próxima semana, teremos $h = 7$ e estimaremos $z(t + 7)$; e assim por diante. 
+O problema de previsão de séries temporais pode ser descrito como encontrar o valor da série temporal $z(t)$ no instante $t + h$, onde $t$ é o instante de origem e $h$ o \textit{horizonte}. Por exemplo, considere que a série temporal $z(t)$ representa os valores do real frente ao dólar e que suas amostras estão espaçadas no período de um dia. Se quisermos prever o valor do próximo dia do real frente ao dólar, teremos $h = 1$ e calcularemos $z(t + 1)$ . Se quisermos prever o valor do real frente ao dólar na próxima semana, teremos $h = 7$ e estimaremos $z(t + 7)$; e assim por diante. 
 
 Por questão de simplicidade nas notações, iremos denotar a estimativa de $z(t+h)$ como $\hat{z}(h)$. Por exemplo, se a série temporal $z(t)$ representa os valores do real frente ao dólar, para representar o valor desta série na próxima semana (ou seja, $z(t + 7)$, escreveremos simplesmente $\hat{z}(7)$. 
 
@@ -65,16 +63,16 @@ Levando em conta essas notações, o erro quadrático médio\footnote{MSE, do in
 \begin{equation}
 \text{MSE} \triangleq \mathbb{E}\left\{\left[z(t + h) - \hat{z}(t+h)\right]^2\right\},
 \end{equation}
-onde $\mathbb{E}[\cdot]$ é o operador de esperança estatística.
+onde $\mathbb{E}[\cdot]$ é o operador de esperança estatística. Na prática, como temos somente acesso a uma realização do processo estocástico, tal métrica é \emph{estimada} por apelo a uma média temporal, o que implica que assumimos a ergodicidade do processo estocástico subjacente~\cite{LonnieRandomProcesses2003}.
 
 \subsection{Aplicações de previsões de séries temporais}
-O estado da arte no tratamento de séries temporais, como foi dito na Seção \ref{sec:SeriesTemporais}, contempla diversas áreas do conhecimento e, consequentemente, diversos conhecimentos específicos de cada área são empregados como suporte ao modelo de previsão proposto. 
+O estado da arte no tratamento de séries temporais, como foi dito na Seção \ref{sec:SeriesTemporais}, exige o concurso de diversos conhecimentos específicos de cada área, os quais são empregados como suporte ao modelo de previsão proposto. Sem pretensão de exaurir este vasto campo, iremos doravante descrever algumas abordagens importantes propostas na literatura.
 
-O trabalho \cite{8412670}, por exemplo, efetua uma previsão para o pico de carga em circuitos de distribuição. Para fazer previsão da carga de pico são utilizadas árvores de regressão aditiva Bayesiana (BART). O método é comparado com o método de regressão linear múltipla e o método de regressão vetorial de suporte com base na área residencial com dados de carga pública do utilitário do Texas.
+O trabalho \cite{8412670} efetua uma previsão para o pico de carga em circuitos de distribuição. Para fazer previsão da carga de pico são utilizadas árvores de regressão aditivas Bayesianas (BARTs). O método é comparado com o método de regressão linear múltipla e o método de regressão vetorial de suporte com base na área residencial com dados de carga pública do utilitário do Texas.
 
-Já o trabalho \cite{8412036} implementa uma rede neural para previsão de curto prazo da produção de energia em uma usina fotovoltaica. A estrutura dessas redes neurais é otimizada com um algoritmo genético que seleciona os valores para os principais parâmetros da rede neural e as variáveis usadas como entradas. Essas variáveis de entrada são selecionadas entre um conjunto de variáveis que inclui variáveis meteorológicas, cronológicas, astronômicas e previstas relacionadas à localização da usina.
+Já o trabalho \cite{8412036} implementa uma rede neural para previsão de curto prazo da produção de energia em uma usina fotovoltaica. A estrutura dessas redes neurais é otimizada com um algoritmo genético que seleciona os valores para os principais parâmetros da rede neural e as variáveis usadas como entradas. Essas variáveis de entrada são selecionadas entre um conjunto de variáveis, o qual inclui variáveis metereológicas, cronológicas, astronômicas e previstas relacionadas à localização da usina.
 
-O trabalho \cite{8413116} explora o problema de otimização do ajuste hierárquico de carga, onde a carga elétrica é organizada hierarquicamente com base na geografia, o que requer previsões hierárquicas que abrangem todos os níveis das operações do sistema de energia. Uma maneira trivial de implementar previsões hierárquicas consiste em gerar previsões de carga em cada nível de forma independente. No entanto, essas previsões geradas de forma independente podem não satisfazer estruturas hierárquicas, ou seja, a soma das previsões de nível inferior não pode ser adicionado exatamente nas previsões de nível superior. Para resolver esse o problema, o trabalho \cite{8413116} apresenta um modelo de programação quadrática (QP) para ajustar otimamente as previsões de carga geradas independentemente em cada nível de uma hierarquia.
+O trabalho \cite{8413116} explora o problema de otimização do ajuste hierárquico de carga, onde a carga elétrica é organizada hierarquicamente com base na geografia, o que requer previsões hierárquicas que abrangem todos os níveis das operações do sistema de energia. Uma maneira trivial de implementar previsões hierárquicas consiste em gerar previsões de carga em cada nível de forma independente. No entanto, essas previsões geradas de forma independente podem não satisfazer estruturas hierárquicas, ou seja, a soma das previsões de nível inferior não pode ser agregada nas previsões de nível superior por recurso a meras somas. Para resolver esse problema, o trabalho \cite{8413116} apresenta um modelo de programação quadrática (QP) para ajustar otimamente as previsões de carga geradas independentemente em cada nível de uma hierarquia.
 
 As tecnologias para \textit{Smart Grids} também podem ser amparadas mediante o concurso de modelos de previsão de séries temporais. Classicamente, um modelo de \emph{Smart Grid} permite que diferentes fontes de energia participem da rede \cite{8408964}. Além disso, a demanda de carga também varia continuamente, por isso a previsão de carga é de importância crucial para a operação, manutenção e planejamento adequados do sistema de energia elétrica. A referência \cite{8408964} apresenta uma abordagem para esse problema, utilizando Sistemas Adaptativos de Inferência Neuro-difusa.
 
@@ -84,21 +82,21 @@ Aprendizado de máquina e algoritmos de regressão são usados no trabalho \cite
 
 O trabalho \cite{8408773} analisa uma série de algoritmos de inteligência artificial, como redes neurais, para prever a velocidade do vento, o que é importante para a indústria no planejamento da operação de sistemas de energia renovável.
 
-A previsão de preços de eletricidade é de grande importância, especialmente na construção do mercado de energia em todo o mundo. O trabalho \cite{8403372} propôs uma abordagem de previsão combinada paralela com o modelo ARIMA \cite{box1970time}, que consiste em ajustar modelos auto-regressivos integrados de médias móveis, redes neurais, entre outros, com base na classificação sazonal para previsão de preço de eletricidade (DAEPF) no dia seguinte. 
+A previsão de preços de eletricidade é de grande importância, especialmente para o mercado de energia em todo o mundo. O trabalho \cite{8403372} propôs uma abordagem de previsão combinada paralela com o modelo ARIMA \cite{box1970time}, que consiste em ajustar modelos auto-regressivos integrados de médias móveis, redes neurais, entre outros, com base na classificação sazonal para previsão de preço de eletricidade (DAEPF) no dia seguinte. 
 
 A previsão de séries temporais associadas a preço de ações também é um problema recorrente na previsão de séries temporais, explorado por exemplo em \cite{8410278, 7310722}. Eis um problema clássico para a previsão de séries temporais, onde em geral é utilizado o valor do preço de uma ação para estimar quanto será o preço futuro do ativo ou ainda classificar se o ativo irá se valorizar ou não. Abordagens com redes neurais são comuns e foram aplicadas em \cite{8410278}. Já o trabalho \cite{7310722} utiliza algoritmos tradicionais de clusterização para a previsão.
 
 \subsection{Série Temporal: O Bitcoin}
  
- O Bitcoin \cite{nakamoto2008bitcoin} é uma versão \emph{peer-to-peer} de dinheiro eletrônico que permite pagamentos \emph{online} que são enviados diretamente de uma parte para outra sem necessidade de intermédio de uma instituição financeira. 
+ O Bitcoin \cite{nakamoto2008bitcoin} é uma versão \emph{peer-to-peer} de dinheiro eletrônico a qual permite pagamentos \emph{online}, os quais são enviados diretamente de uma parte para outra, sem necessidade de intermédio de uma instituição financeira. 
  
- Para realizar a validação das transações é necessário o emprego de assinaturas digitais que evitam que o mesmo montante de Bitcoins seja enviado para duas pessoas ao mesmo tempo, fenômeno conhecido como \textit{double-spending}. Para  resolver o problema de \textit{ double-spending}, o Bitcoin usa uma rede \emph{peer-to-peer} que salva o horário das transações, calculando o seu HASH (atualmente consoante o padrão Double-SHA256 \cite{bitcoinwikihashcash}), e salvando em uma estrutura de dados que hoje é conhecida como \textit{Blockchain}.
+ Para realizar a validação das transações é necessário o emprego de assinaturas digitais, que evitam que o mesmo montante de Bitcoins seja enviado para duas pessoas ao mesmo tempo. Tal fenômeno é conhecido como \textit{double-spending}. Para  resolver o problema de \textit{ double-spending}, o Bitcoin usa uma rede \emph{peer-to-peer} que salva o horário das transações, calculando o seu HASH (atualmente consoante o padrão Double-SHA256 \cite{bitcoinwikihashcash}), e salvando o resultado em uma estrutura de dados conhecida como \textit{Blockchain}.
  
 O Blockchain, como o próprio nome diz, é uma corrente de blocos, na qual o bloco atual é ligado ao bloco anterior por meio do cálculo de HASH do bloco anterior. 
 
 Para validar o HASH de cada bloco, o Bitcoin usa um \textit{proof-of-work} que consiste em calcular o Double-HASH-256 de cada bloco. Ou seja, o nó deverá calcular qual frase gerará o HASH recebido.
 
-Para executar a rede do Bitcoin os seguintes passos são necessários:
+Para executar a rede do Bitcoin os seguintes passos são necessários \dbh{(ref)}:
 \begin{enumerate}
 \item Novas transações são enviadas em \textit{broadcast} para todos os nós da rede;
 \item Cada nó transforma a nova transação em um bloco;
@@ -124,12 +122,12 @@ O algoritmo proposto, baseado numa estrutura neural treinada pelo concurso do al
 
 \subsection{Delimitação}
 
-O objeto de estudo é a Série Temporal do histórico do preço do Bitcoin e como a tendência das buscas do termo "Bitcoin", capturada pelo \textit{Google Trends}, pode treinar uma rede neural classificadora para que ela determine se o valor do preço Bitcoin irá subir ou diminuir.
+O objeto de estudo desta projeto reside na Série Temporal do histórico do preço do Bitcoin e de como a tendência das buscas do termo ``Bitcoin'', capturada pelo \textit{Google Trends}, pode ser capaz de treinar uma rede neural classificadora para que ela determine se o valor do preço Bitcoin irá subir ou se reduzir.
 
-Existem dezenas de cripto-moedas no mercado atualmente. Esse trabalho focará, em primeiro momento, apenas no Bitcoin, pois busca explorar a ligação que o valor do Bitcoin tem com as tendências de busca do termo "Bitcoin", como mostrado em \cite{matta2015bitcoin}. 
+Existem dezenas de cripto-moedas no mercado atualmente. Esse trabalho focará, em primeiro momento, apenas no Bitcoin, pois busca explorar a ligação que o valor do Bitcoin tem com as tendências de busca do termo ``Bitcoin'', como mostrado em \cite{matta2015bitcoin}. 
 
 As Figuras \ref{fg:comparacao_bitcoin_12m}, \ref{fg:comparacao_ethereum_12m}, \ref{fg:comparacao_litecoin_12m}, \ref{fg:comparacao_ripple_12m}, \ref{fg:comparacao_bcash_12m} apresentam a comparação entre a série do preço das cripto-moedas Bitcoin \cite{nakamoto2008bitcoin}, Ethereum \cite{Ethereum}, Litecoin \cite{Litecoin}, Ripple \cite{Ripple} e Bitcoin Cash \cite{BitcoinCash}, e os dados do \textit{Google Trends} referentes ao nome das cripto-moedas, nos últimos 12 meses, com frequência de 7 dias, onde o valor é medido em Dólares e o valor do \textit{Google Trends} é medido em percentagem, ou seja, 0\% se no período a busca relativa ao termo foi mínima e 100\% se foi máxima. Essas são as 5 das cripto-moedas mais relevantes da atualidade. 
-Analisando os dois gráficos de cada cripto-moeda é possível perceber como os dois gráficos apresentam um formato parecido, especialmente no Bitcoin, que é a cripto-moeda mais famosa. Essa semelhança mostra uma possível relação entre os dois valores, relação esta que será explorada nesse trabalho, por meio das estatísticas oriundas do \textit{Google Trends} para prever o valor da cripto-moeda. É possível perceber que os outros dois gráficos das cripto-moedas restantes não têm uma correlação tão forte como a apresentada pela série do Bitcoin (o que coincide com \cite{matta2015bitcoin}). O Bitcoin, por ser a cripto-moeda mais famosa, também é a que tem mais relação com a quantidade de buscas das pessoas, levando a crer que as outras cripto-moedas são negociadas por nichos mais específicos de compradores, ou seja, a pessoa que vai comprar uma cripto-moeda mais específica, como a Ripple, é uma pessoa com mais conhecimento técnico, não precisando buscar tanto o termo antes de comprar. Já o Bitcoin, como é mais conhecido, oferece diversos meios de compra, de forma mais simples, o que favorece a compra das pessoas mais leigas, colaborando com a premissa de que a quantidade de vezes que o termo ``Bitcoin'' é buscado tem relação com o valor do Bitcoin. Porém, deve ser deixado claro que o modelo proposto pode ser posteriormente usado com qualquer cripto-moeda.
+Analisando os dois gráficos de cada cripto-moeda, é possível perceber como os dois gráficos apresentam um formato parecido, especialmente no Bitcoin, a cripto-moeda mais famosa. Essa semelhança mostra uma possível relação entre os dois valores, relação esta que será explorada nesse trabalho, por meio das estatísticas oriundas do \textit{Google Trends} para prever o valor da cripto-moeda. É possível perceber que os outros dois gráficos das cripto-moedas restantes não têm uma correlação tão forte como a apresentada pela série do Bitcoin (o que coincide com o relatado em \cite{matta2015bitcoin}). O Bitcoin, por ser a cripto-moeda mais célebre, também é a que tem mais relação com a quantidade de buscas das pessoas, levando a crer que as outras cripto-moedas são negociadas por nichos mais específicos de compradores, ou seja, a pessoa que vai comprar uma cripto-moeda mais específica, como a Ripple, é uma pessoa dotada de mais conhecimento técnico, não precisando buscar tanto o termo antes de comprar. Já o Bitcoin, como é mais conhecido, oferece diversos meios de compra, de forma mais simples, o que favorece a compra das pessoas mais leigas, colaborando com a premissa de que a quantidade de vezes que o termo ``Bitcoin'' é buscado tem relação com o valor do Bitcoin. Porém, cumpre esclarecer que o modelo proposto pode ser posteriormente adaptado para a previsão do futuro da cotação de qualquer cripto-moeda.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{center}
@@ -433,7 +431,7 @@ Analisando os dois gráficos de cada cripto-moeda é possível perceber como os 
 	\end{figure}
 \end{center}
 \subsection{Objetivo}
-O objetivo deste trabalho reside na construção de um modelo neural, capaz de modelar relações não lineares, possivelmente presentes na série histórica do Bitcoin. O algoritmo base é o \emph{Backpropagation} \cite{hecht1992theory} que tem a capacidade de treinar as camadas intermediárias. Utilizaremos como fonte de dados para previsão da subida ou descida do valor do preço do Bitcoin os dados do Google Trends e o valor do preço do próprio Bitcoin. É esperado que o algoritmo aumente a acurácia vista na literatura, além de ser disponibilizado como uma API que possa ser usada por outros sistemas. O algoritmo que será proposto deverá categorizar o valor do preço futuro do Bitcoin em duas categorias, as quais serão a saída do algoritmo:
+O objetivo deste trabalho reside na construção de um modelo neural, capaz de modelar relações não lineares, possivelmente presentes na série histórica do Bitcoin. O algoritmo base é o \emph{Backpropagation} \cite{hecht1992theory}, o qual apresenta a habilidade de adaptar os parâmetros das camadas intermediárias da rede neural. Utilizaremos como fonte de dados para previsão da subida ou descida do valor do preço do Bitcoin os dados do Google Trends e o valor do preço do próprio Bitcoin. É esperado que o algoritmo aumente a acurácia vista na literatura, além de ser disponibilizado como uma API que possa ser usada por outros sistemas. O algoritmo que será proposto deverá categorizar o valor do preço futuro do Bitcoin em duas categorias, as quais serão a saída do algoritmo:
 \begin{enumerate}
 \item o valor da moeda aumentará, quando comparada ao seu valor anterior (COMPRE);
 \item o valor da moeda diminuirá, quando comparada ao seu valor anterior (VENDA).
@@ -441,18 +439,18 @@ O objetivo deste trabalho reside na construção de um modelo neural, capaz de m
 
 \subsection{Metodologia}
 
-Este trabalho irá utilizar as conclusões apresentadas em  \cite{matta2015bitcoin, mcnally2016predicting,weigend2018time}, que sugerem a relação entre a quantidade de vezes que o termo ``Bitcoin'' é buscado no Google e o valor do preço do Bitcoin. Os dados de entrada serão os valores da série histórica do Bitcoin, disponíveis no site Investing \cite{Investing}, e os valores referentes a quantidade de vezes que o termo "Bitcoin" é buscado no Google, disponíveis através da ferramenta \textit{Google Trends} \cite{GoogleTrends}. Os dados obtidos serão baixados para serem trabalhados, a princípio, de modo \textit{offline} para elaboração do algoritmo.
+Este trabalho irá utilizar as conclusões apresentadas em  \cite{matta2015bitcoin, mcnally2016predicting,weigend2018time}, que sugerem a relação entre a quantidade de vezes que o termo ``Bitcoin'' é buscado no Google e o valor do preço do Bitcoin. Os dados de entrada serão os valores da série histórica do Bitcoin, disponíveis no site Investing \cite{Investing}, e os valores referentes a quantidade de vezes que o termo ``Bitcoin'' é buscado no Google, disponíveis através da ferramenta \textit{Google Trends} \cite{GoogleTrends}. Os dados obtidos serão baixados para serem trabalhados, a princípio, de modo \textit{offline} para elaboração do algoritmo.
 
 Os dados serão divididos em três partes:
 \begin{enumerate}
 \item base de treinamento: será utilizada para treinamento supervisionado do algoritmo;
-\item base de testes: será utilizada pra testar o algoritmo treinado anteriormente;
+\item base de validação: será utilizada pra testar parâmetros do algoritmo treinado anteriormente;
 \item base de previsão: será utilizada para testar o nível de acerto real do algoritmo.
 \end{enumerate}
 
-O algoritmo utilizado será o Backpropagation \cite{hecht1992theory}, que tem a capacidade de treinar as camadas intermediárias, através do cálculo o gradiente em relação aos coeficientes das camadas intermediárias. Antes do treinamento será usado o algoritmo do \textbf{PCA} \cite{Jolliffe:1986} (do inglês \emph{Principal Component Analysis}) para compressão dos dados, com objetivo de aumentar a velocidade de aprendizado do algoritmo. A rede neural deverá retornar a classificação da previsão dos valores do preço do Bitcoin em duas classes: o preço irá subir ou descer. Essa informação deverá auxiliar um investidor a tomar a decisão de compra ou de venda da cripto-moeda.
+O algoritmo utilizado será o Backpropagation \cite{hecht1992theory}, capaz de eficientemente treinar estruturas neurais através do cálculo o gradiente em relação aos coeficientes das camadas intermediárias. Antes do treinamento será usado o algoritmo \textbf{PCA} \cite{Jolliffe:1986} (do inglês \emph{Principal Component Analysis}) para compressão dos dados, com objetivo de aumentar a velocidade de aprendizado do algoritmo. A rede neural deverá retornar a classificação da previsão dos valores do preço do Bitcoin em duas classes: a referente à subida de preços e a referente à descida. Essa informação deverá auxiliar um investidor a tomar a decisão de compra ou de venda da cripto-moeda.
 
 
-Os dados de treinamento serão utilizados para estimar o número de neurônios na camada escondida e o número de amostrar pregressas, que são variáveis no algoritmo Backpropagation, de forma a otimizar os resultados. 
+Os dados de treinamento serão utilizados para estimar o número de neurônios na camada escondida e o número de amostras pregressas que constarão no vetor de entrada, que são variáveis no modelo neural, de forma a otimizar os resultados. 
 
 Utilizaremos outros algoritmos, como o \textbf{RNN} (Rede Neurais recorrentes), \textbf{LSTM}  e \textbf{Análise de Regressão Linear}, para avaliar a capacidade de previsão do algoritmo proposto, onde o objetivo é superar os resultados obtidos por esses algoritmos, em especial em \cite{mcnally2016predicting}.

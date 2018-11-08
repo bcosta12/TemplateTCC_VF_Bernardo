@@ -3,7 +3,8 @@
 \label{subsec:oquesaoredesneurais}
 
 As redes neurais artificiais, como conhecidas na literatura \cite{haykin2004comprehensive, haykin2009neural, lecun2015deep}, são estruturas aptas ao aprendizado inspiradas na forma com que os neurônios de cérebros reais funcionam. Um modo estrutural de organização, bem como a distribuição de informação ao longo da arquitetura foram levados em conta na construção deste poderoso modelo matemático que hoje conhecemos como Redes Neurais \cite{haykin2004comprehensive, haykin2009neural, lecun2015deep}. Tais redes são reconhecidamente uma tecnologia bioinspirada, já que são profundamente motivadas pelo aprendizado demonstrado pelo cérebro de seres vivos, notadamente o dos seres humanos. 
-\begin{figure}[b]
+
+\begin{figure}[h!]
     \centering
     \caption{Representação de um neurônio.}
     \includegraphics[scale=0.17]{Figuras/Cap2/neuronio.png}
@@ -61,7 +62,7 @@ No objetivo de representar mais formalmente o processamento matemático empreend
 
     % Draw the input layer nodes
     \foreach \name \y in {1,...,3}
-        \node[input neuron, pin=left:] (I-\name) at (0,-2.2*\y){x\y};
+        \node[input neuron, pin=left:] (I-\name) at (0,-2.2*\y){$x_\y$};
 
     % Draw the output layer node
     \node[output neuron,pin={[pin edge={->}]right:}] (ou) at (3,-4.4) {$h\theta (x)$};
@@ -78,16 +79,16 @@ No objetivo de representar mais formalmente o processamento matemático empreend
 \label{fg:rede_neural_simples}
 \end{figure}
 
-Os elementos desse neurônio podem ser escritos na forma matricial. Assumindo uma entrada $x$ composta de $n$ elementos, podemos representá-la como:
+Os elementos desse neurônio podem ser escritos na forma matricial. Assumindo uma entrada $\boldsymbol{x}$ composta de $n$ elementos, podemos representá-la como:
 \begin{equation}
-  \mathbf{x}^T \triangleq \begin{bmatrix}x_{1}&x_{2}&x_{3}&...&x_{n-1}&x_{n} \end{bmatrix}
+  \mathbf{x} \triangleq \begin{bmatrix}x_{1}&x_{2}&x_{3}&...&x_{n-1}&x_{n} \end{bmatrix}^T,
 \end{equation}
  com os pesos representados como:
  \begin{equation}
   \mathbf{\theta}^T \triangleq \begin{bmatrix}\theta_{1}&\theta_{2}&\theta_{3}&...&\theta_{n-1}&\theta_{n}\end{bmatrix}
 \end{equation}
 
-Frequentemente na literatura \cite{haykin2004comprehensive, haykin2009neural, lecun2015deep} é adicionado em cada neurônio uma amostra extra, chamada de \textit{bias}, ou viés. O \textit{bias} serve para aumentar os graus de liberdade do sistema, levando o resultado do Neurônio para uma determinada direção. Ele permite que restrições muito severas não sejam aplicadas ao sistema. Por exemplo, caso as entradas sejam nulas, o neurônio terá uma saída também nula, o que comumente é uma restrição muito forte. O  \textit{bias}, portanto,  permite uma melhor adaptação do sistema.
+Frequentemente na literatura \cite{haykin2004comprehensive, haykin2009neural, lecun2015deep} é adicionado em cada neurônio um valor extra, chamada de \textit{bias}, ou viés. O \textit{bias} serve para aumentar os graus de liberdade do sistema, levando o resultado do Neurônio para uma determinada direção. Ele permite que restrições muito severas não sejam aplicadas ao sistema. Por exemplo, caso as entradas sejam nulas, o neurônio terá uma saída também nula na ausência de \textit{bias}, o que comumente é uma restrição muito forte. O  \textit{bias}, portanto,  permite uma melhor adaptação do sistema, bem como uma maior capacidade de modelagem.
 
 %FEITO
 %\dbh{Errado, Bernardo! Esse bias é essencial, porque caso contrário a rede neural necessariamente irá jogar uma entrada nula numa saída também nula, o que comumente é uma restrição muito forte!!!}
@@ -175,7 +176,7 @@ Para representar a Rede Neural, primeiramente, é preciso  representar $a^{(x)}_
 \end{equation}
 
 
-Sabendo como calcular os $a^{(x)}_y$ de todas as camadas, deixando claro que é preciso saber o resultado da camada anteriora para calcular a camada atual, é possível definir uma saída genérica $\mathbf{h}{\Theta}(x)_y$ como na  Eq. \ref{fun:thetanm}. Note que a Eq. \ref{fun:thetanm} é apenas consequência de ir executando a Eq.  \ref{fun:axy} até a última camada. Esse procedimento é conhecido como \textit{Forward Propagagtion}, e será abordado melhor na seção \ref{subsec:backpropagation} ao falar de Backpropagation.
+Sabendo como calcular os $a^{(x)}_y$ de todas as camadas, deixando claro que é preciso saber o resultado da camada anterior para calcular a camada atual, é possível definir uma saída genérica $\mathbf{h}{\Theta}(x)_y$ como na  Eq. \eqref{fun:thetanm}. Note que a Eq. \eqref{fun:thetanm} é apenas consequência de ir executando a Eq.  \eqref{fun:axy} até a última camada. Esse procedimento é conhecido como \textit{Forward Propagagation}, e será abordado melhor na seção \ref{subsec:backpropagation}, a qual abordará o algoritmo \textit{Backpropagation}.
 
 \begin{equation}
     \mathbf{h}{\Theta}(x) = a^{(n)}_y = g(\Theta^{n-1}_{y0}a^{n-1}_{0}+\Theta^{n-1}_{y1}a^{n-1}_{1}+\Theta^{n-1}_{y2}a^{n-1}_{2}+...+\Theta^{n-1}_{y(n-1)}a^{n-1}_{n-1}+\Theta^{n-1}_{yn}a^{n-1}_{m})
@@ -183,17 +184,16 @@ Sabendo como calcular os $a^{(x)}_y$ de todas as camadas, deixando claro que é 
 \end{equation}
 
 
-Para simplificar os cálculos, é usual utilizar operações matriciais, que conseguem atualizar todos os seus componentes em uma única operação. Para representar todas as entradas, por exemplo, foi utilizado a Eq. \ref{fun:entrada_generica}.
+Para simplificar os cálculos, é usual utilizar operações matriciais, que conseguem descrever a atualização de todos os componentes sucintamente, em uma única operação. Para representar todas as entradas, por exemplo, foi utilizada a Eq. \eqref{fun:entrada_generica}.
 %FEITO
 %\dbh{O texto está muito seco; só definições matemáticas, as quais não apelam à intuição!}
 
 
 \begin{equation}
     \label{fun:entrada_generica}
-  \mathbf{x}^T = \begin{bmatrix}x_{1}&x_{2}&x_{3}&...&x_{n-1}&x_{n}\end{bmatrix}
+  \boldsymbol{x} = \begin{bmatrix}x_{1}&x_{2}&x_{3}&...&x_{n-1}&x_{n}\end{bmatrix}^T,
 \end{equation}
-
-E a resposta da Rede Neural Genérica pode ser escrita na forma matricial mediante o emprego de \eqref{fun:h_generica}.
+e a resposta da Rede Neural Genérica pode ser escrita na forma matricial mediante o emprego de \eqref{fun:h_generica}.
 
  \begin{equation}
    \label{fun:h_generica}
@@ -209,24 +209,27 @@ E a resposta da Rede Neural Genérica pode ser escrita na forma matricial median
 \end{equation}
 
 
-Essas são as representações gráficas e matemáticas que serão utilizadas no decorrer deste trabalho. Na próxima subseção será abordada a função de ativação.
+Essas são as representações gráficas e matemáticas que serão utilizadas no decorrer deste trabalho. Na próxima subseção, a função de ativação será abordada com maiores detalhes.
 
 \subsection{Funções de Ativação}
 \label{sec:funcaoativacao}
+Quando se trata de Redes Neurais, uma característica importantíssima resida na escolha da função de ativação. As funções de ativação são funções não-lineares que decidem para onde a resposta de cada neurônio deve ir, de acordo com a entrada recebida. Em outras palavras, elas decidem se aquele neurônio será ativado ou não \cite{activationfun, haykin2004comprehensive, haykin2009neural, lecun2015deep}.
 
-\cite{activationfun}
+Se as funções de ativação fossem puramente lineares, não importaria quantas camadas a rede tivesse: o resultado seria uma função linear, visto que a combinação de duas funções lineares é também linear. 
 
-\dbh{Motivar o emprego da função não-linear; a não linearidade é muito importante para o poder das redes neurais.}
+A propriedade de modelagem de relações não lineares deve ser vista com cautela; uma quantidade excessiva de parâmetros pode implicar uma boa aproximação no conjunto de treino, a qual pode não implicar uma boa taxa de acerto no conjunto de teste. Neste caso, temos o problema de \textit{sobreajuste} (em inglês, \textit{overfitting}). Tal sobreajuste significa que a rede neural está demasiado enviezada para as idiossincrassias do conjunto de treinamento; tal ``aprendizado de ruído'' concorre para prejudicar sua habilidade de generalização~\cite{activationfun, haykin2004comprehensive, haykin2009neural, lecun2015deep}.
 
-\bac{motivar mais as funcoes de ativacao **ReLU copiada do guilherme}
+%FEITO
+%\dbh{Motivar o emprego da função não-linear; a não linearidade é muito importante para o poder das redes neurais.}
 
-A função de ativação é denotada como $h_\Theta (x)$ e define a saída de um neurônio para uma dada entrada $x$. Descreveremos a seguir a função de ativação sigmoide, a mais comum em Redes Neurais \cite{haykin2004comprehensive, haykin2009neural, lecun2015deep}.
+A função de ativação é denotada como $h_\Theta (x)$ e define a saída de um neurônio para uma dada entrada $x$. Nas próximas seções serão abordados as funções de ativações mais usadas em Redes Neurais \cite{activationfun, haykin2004comprehensive, haykin2009neural, lecun2015deep}.
 
 \subsubsection{Função Sigmoide}
 \label{subsec:sigmoid}
-\dbh{Não, mil vezes não! A sigmoide é suave, não é brusca como mostrado na equação (23)! Este capítulo tem que ser muito lapidado. Só tem definições matemáticas, com pouca discussão motivadora! Ler mais!}
 
-A Eq.\ref{fun:sigmoid} representa a função sigmoide, apresentada graficamente na Fig. \ref{fg:funcao_sigmoide}. 
+A função sigmoide é uma função que têm característica suave, que retorna valores positivos entre 0 e 1, como pode ser visto na  Fig. \ref{fg:funcao_sigmoide}. A Eq. \eqref{fun:sigmoid} descreve a função sigmoide.
+%FEITO
+%\dbh{Não, mil vezes não! A sigmoide é suave, não é brusca como mostrado na equação (23)! Este capítulo tem que ser muito lapidado. Só tem definições matemáticas, com pouca discussão motivadora! Ler mais!}
 
 
 \begin{equation}
@@ -252,7 +255,8 @@ A Eq.\ref{fun:sigmoid} representa a função sigmoide, apresentada graficamente 
 
 \subsubsection{Função Tangente Hiperbólica}
 \label{subsec:htan}
-\bac{TANGENTE HIPERBOLCIA}
+
+A função tangente hiperbólica é bem similar à função sigmoide, mas com a vantagem de resolver o problema da sigmoide não apresentar números negativos em seu contradomínio. A função tangente hiperbólica apresenta como valores extremos de seu conjunto imagens -1 e 1, como pode ser visto na Fig. \ref{fg:funcao_tanh}. A Eq. \eqref{fun:tanh} descreve a função tangente hiperbólica.
 
 \begin{equation}
   f(x) =  \frac{\mathrm{1} - e^{- \mathbf{\theta^T}x}}{\mathrm{1} + e^{- \mathbf{\theta^T}x}}
@@ -276,10 +280,14 @@ A Eq.\ref{fun:sigmoid} representa a função sigmoide, apresentada graficamente 
 \end{center}
 
 
-
 \subsubsection{Função ReLU}
 \label{subsec:relu}
-A função ReLU (\textit{rectified linear unit}) realiza a ativação do nó apenas se a entrada estiver acima de um valor predeterminado. O ReLU é representado pela equação $\phi (x) = max(0,x)$. A Figura \ref{fig:relu} mostra o gráfico dessa função. Trata-se de uma função não linear (ainda que linear por partes) que permite implementações com baixo custo computacional.
+A Função ReLU (\textit{\textbf{RE}ctified \textbf{L}inear \textbf{U}nit}) tem uma característica principal que a difere das outras funções de ativação aqui apresentadas. Ela realiza a ativação apenas se a entrada for positiva, como mostra a Eq. \ref{fun:relu}. Essa característica faz com que a ReLU normalmente ative somente alguns neurônios da rede, os cuja entrada é positiva. Tal propriedade promove uma rede esparsa, sendo ideal para redes com muitas camadas, associadas ao \textit{Deep Learning}. Essas características da Função ReLU podem ser percebidas na Fig. \ref{fig:relu}. Uma grande vantagem da função ReLU reside no fato de sua avaliação implicar um baixo custo computacional.
+
+\begin{equation}
+  f(x) = max(0,x)
+  \label{fun:relu}
+\end{equation}
 
 \begin{figure}[!htb]
     \centering
@@ -295,3 +303,4 @@ A função ReLU (\textit{rectified linear unit}) realiza a ativação do nó ape
 \end{tikzpicture}
 \label{fig:relu}
 \end{figure}
+

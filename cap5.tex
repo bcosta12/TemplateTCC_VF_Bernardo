@@ -1,9 +1,224 @@
 \section{Resultados}
 
+Como já foi adiantado no capítulo \ref{sec:algoritmos}, foram realizados 3 grandes avaliações de modelos para os 3 tipos de dados utilizados, que são: dados do valor do preço do Bitcoin, dados do valor do \textit{Google Trends} do termo Bitcoin e os dados do valor do preço do bitcoin e dados do valor do \textit{Google Trends} do termo Bitcoin combinados (concatenados em linha). Esta seção relatará cada um desses experimentos e mostra os resultados obtidos em cada base de dados
+
+
 \subsection{Comparação dos resultados das três entradas testadas}
+
+Como foi visto na seção \ref{sec:metodologia}, todas as 3 avaliações realizadas neste trabalho, utilizando as metodologias \ref{sec:meto0} e \ref{sec:meto1}, com as 3 bases de dados apresentados na seção \ref{sec:metobase}, serão apresentadas nas próximas seções.
+
+\subsubsection{Resultado com a base de dados do Tipo 1}
+
+Ao executar a metodologia \ref{sec:meto0} com os dados do Tipo 1, que contém apenas o valor do preço do Bitcoin, foram selecionados, ao final, 7 Modelos de Rede Neural a obterem os menores desvio padrão. Os 7 modelos vencedores da metodologia \ref{sec:meto0} são exibidos na Tabela \ref{tab:moto0-1}.
+
+Todos os 7 modelos vencedores utilizaram a base de dados com com 5 amostras e PCA igual a 5, lembrando que o a frequência das amostras é diária. A arquitetura vencedora, que é a arquitetura que ficou na mediana dos valores, apresentou RMS igual a \textbf{24,6557\%}, Desvio padrão de \textbf{5,0190\%} e acurácia média de \textbf{56,6545\%}. Essa arquitetura foi a utilizada na metodologia \ref{sec:meto1}.
+
+\begin{table}[]
+\centering
+\label{tab:moto0-1}
+\caption{Tabela de avaliação de modelo dos dados do Tipo 1}
+\begin{tabular}{|M{0.2cm}|M{4cm}|M{1cm}|M{2cm}|M{1.6cm}|M{2cm}|M{1.5cm}|}
+\hline
+ &\#Neurônios na camada escondida&\#PCA &\#Amostras por linha&RMS (\%)&Desvio padrão (\%)&Acurácia (\%)\\\hline
+ 1&  1&  5&  5&  24,6357&  3,9080&  57,8748\\ 
+ 2&  9&  5&  5&  24,6498&  5,0229&  56,7289\\
+ 3&  7&  5&  5&  24,6515&  4,6648&  56,9145\\
+ \textbf{4}&  \textbf{8}&  \textbf{5}&  \textbf{5}&  \textbf{24,6557}&  \textbf{5,0190}&  \textbf{56,6545}\\
+ 5&  4&  5&  5&  24,6760&  4,7606&  56,6483\\
+ 6&  5&  5&  5&  24,6773&  4,6635&  56,5674\\
+ 7&  2&  5&  5&  24,6818&  4,4030&  56,7106\\\hline
+\end{tabular}
+\begin{center}
+	    Fonte: O autor (2018)
+	\end{center}
+\end{table}
+
+Para executar a metodologia \ref{sec:meto1}, foram realizadas 7 testes da arquitetura vencedora, que podem ser vistos na Tabela \ref{tab:moto1-1}. O resultado final da base de dados do Tipo 1 foi de \textbf{50,2347\%}.
+
+\begin{table}[]
+\centering
+\label{tab:moto1-1}
+\caption{Tabela de teste do dos dados do Tipo 1}
+\begin{tabular}{|M{0.4cm}|M{2cm}|}
+\hline
+
+ &Acurácia (\%)\\\hline
+ 1&49,7652\\
+ 2&50,2347\\
+ 3&50,2347\\
+ \textbf{4}&\textbf{50,2348}\\
+ 5&50,7042\\
+ 6&50,7042\\
+ 7&50,7042\\\hline
+\end{tabular}
+\begin{center}
+	    Fonte: O autor (2018)
+	\end{center}
+\end{table}
+
+\subsubsection{Resultado com a base de dados do Tipo 2}
+
+Ao executar a metodologia \ref{sec:meto0} com os dados do Tipo 2, que contém apenas o valor do \textit{Google Trends} do Bitcoin, foram selecionados, ao final, 7 Modelos de Rede Neural a obterem os menores desvio padrão. Os 7 modelos vencedores da metodologia \ref{sec:meto0} são exibidos na Tabela \ref{tab:moto0-2}.
+
+Todos os 7 modelos vencedores utilizaram a base de dados com com x amostras e PCA igual a x, com frequência de amostra diária. A arquitetura vencedora, que é a arquitetura que ficou na mediana dos valores, apresentou RMS igual a \textbf{xx,xxxx\%}, Desvio padrão de \textbf{x,xxxx\%} e acurácia média de \textbf{xx,xxxx\%}. Essa arquitetura foi a utilizada na metodologia \ref{sec:meto1}.
+
+\begin{table}[]
+\centering
+\label{tab:moto0-2}
+\caption{Tabela de avaliação de modelo dos dados do Tipo 2}
+\begin{tabular}{|M{0.2cm}|M{4cm}|M{1cm}|M{2cm}|M{1.6cm}|M{2cm}|M{1.5cm}|}
+\hline
+ &\#Neurônios na camada escondida&\#PCA &\#Amostras por linha&RMS (\%)&Desvio padrão (\%)&Acurácia (\%)\\\hline
+ 1&  1&  2&  4&  24,7250&  4,7261&  53,0957\\ 
+ 2&  2&  2&  4&  24.7503&  4,9895&  52,5204\\
+ 3&  3&  2&  4&  24,7772&  4,6581&  52,2155\\
+ \textbf{4}&  \textbf{4}&  \textbf{2}&  \textbf{4}&  \textbf{24,7828}&  \textbf{4,5962}&  \textbf{52,5286}\\
+ 5&  10&  2&  4&  24,7891&  4,2942&  52,4477\\
+ 6&  6&  2&  4&  24,7912&  4,0864&  52,8628\\
+ 7&  12&  2&  4&  24,7975&  4,1099&  52,3636\\\hline
+\end{tabular}
+\begin{center}
+	    Fonte: O autor (2018)
+	\end{center}
+\end{table}
+
+Para executar a metodologia \ref{sec:meto1}, foram realizadas 7 testes da arquitetura vencedora, que podem ser vistos na Tabela \ref{tab:moto1-2}. O resultado final da base de dados do Tipo 2 foi de \textbf{xx,xxxx\%}.
+
+\begin{table}[]
+\centering
+\label{tab:moto1-2}
+\caption{Tabela de teste do dos dados do Tipo 2}
+\begin{tabular}{|M{0.4cm}|M{2cm}|}
+\hline
+ &Acurácia (\%)\\\hline
+ 1&1\\
+ 2&1\\
+ 3&1\\
+\textbf{4}&  \textbf{8}\\
+ 5&1\\
+ 6&1\\
+ 7&1\\\hline
+\end{tabular}
+\begin{center}
+	    Fonte: O autor (2018)
+	\end{center}
+\end{table}
+
+\subsubsection{Resultado com a base de dados do Tipo 3}
+
+Ao executar a metodologia \ref{sec:meto0} com os dados do Tipo 3, que contém o valor do preço do Bitcoin e do valor do \texttt{Google Trends} do termo Bitcoin concatenados, foram selecionados, ao final, 7 Modelos de Rede Neural a obterem os menores desvio padrão. Os 7 modelos vencedores da metodologia \ref{sec:meto0} são exibidos na Tabela \ref{tab:moto0-3}.
+
+Todos os 7 modelos vencedores utilizaram a base de dados com com 4 amostras e PCA igual a 2, com frequência de amostra diária. A arquitetura vencedora, que é a arquitetura que ficou na mediana dos valores, apresentou RMS igual a \textbf{24,7828\%}, Desvio padrão de \textbf{4,5962\%} e acurácia média de \textbf{52,5286\%}. Essa arquitetura foi a utilizada na metodologia \ref{sec:meto1}.
+
+\begin{table}[]
+\centering
+\label{tab:moto0-3}
+\caption{Tabela de avaliação de modelo dos dados do Tipo 3}
+\begin{tabular}{|M{0.2cm}|M{4cm}|M{1cm}|M{2cm}|M{1.6cm}|M{2cm}|M{1.5cm}|}
+\hline
+ &\#Neurônios na camada escondida&\#PCA &\#Amostras por linha&RMS (\%)&Desvio padrão (\%)&Acurácia (\%)\\\hline
+ 1&  3&  6&  6&  24,5493&  4,7034&  57,7263\\ 
+ 2&  2&  6&  6&  24,5499&  5,2139&  57,5297\\
+ 3&  13&  6&  6&  24,6325&  4,9916&  56,9421\\
+ \textbf{4}&  \textbf{8}&  \textbf{6}&  \textbf{6}&  \textbf{24,6357}&  \textbf{5,1420}&  \textbf{56,5317}\\
+ 5& 10&  6&  6&  24,6402&  5,0183&  56,8247\\
+ 6&  6&  6&  6&  24,6405&  5,2531&  56,7097\\
+ 7&  9&  6&  6&  24,6409&  5,0773&  56,5769\\\hline
+\end{tabular}
+\begin{center}
+	    Fonte: O autor (2018)
+	\end{center}
+\end{table}
+
+Para executar a metodologia \ref{sec:meto1}, foram realizadas 7 testes da arquitetura vencedora, que podem ser vistos na Tabela \ref{tab:moto1-3}. O resultado final da base de dados do Tipo 3 foi de \textbf{53,9906\%}.
+
+\begin{table}[]
+\centering
+\label{tab:moto1-3}
+\caption{Tabela de teste do dos dados do Tipo 3}
+\begin{tabular}{|M{0.4cm}|M{2cm}|}
+\hline
+ &Acurácia (\%)\\\hline
+ 4&53,0516\\
+ 1&53,0516\\
+ 2&53,0516\\
+ 3&53,5211\\
+ \textbf{4}&\textbf{53,9906}\\
+ 5&53,9906\\
+ 6&53,9906\\
+ 7&54,4601\\\hline
+\end{tabular}
+\begin{center}
+	    Fonte: O autor (2018)
+	\end{center}
+\end{table}
 
 \subsection{Comparação do resultado com trabalhos anteriores}
 
-\subsection{Comparação do resultado com Amazon Web Services Machine Learning}
+O foco principal deste trabalho foi a comparação com trabalhos anteriores. Até a data deste trabalho, o único trabalho que havia apresentado uma metodologia e resultado para este problema, de predição dos valores futuros do Bitcoin, foi o trabalho \cite{matta2015bitcoin}. Por esse motivo este trabalho utilizou o mesmo intervalo de dados de \cite{matta2015bitcoin}, com objetivo de propor que os dados provenientes do \textit{Google Trends} pode ajudar aumentar a acurácia de um modelo de predição do valor do preço do Bitcoin. O resultado da comparação entre este trabalho e o \cite{matta2015bitcoin} pode ser encontrado na Tabala \ref{tab:compamatta2015}.
 
-\subsection{A teoria dos mercados eficientes}
+\begin{table}[]
+\centering
+\label{tab:compamatta2015}
+\caption[Tabela de comparação do resultado]{Tabela de comparação do resultado deste trabalho com t do trabalho \cite{matta2015bitcoin} e da metodologia proposta neste trabalho}
+\begin{tabular}{|M{0.8cm}|M{2.4cm}|M{0.8cm}|M{2.6cm}|M{2.5cm}|}
+\hline
+ Tipo&Trabalho \cite{matta2015bitcoin} Acurácia (\%)&Tipo&Este trabalho Acurácia (\%)&Diferença (\%)\\\hline
+ 1&52,78&1&50,23&-2,55\\
+ 1&52,78&2&xx,xx&+x,xx\\
+ 1&52,78&3&53,05&+0,27\\\hline
+\end{tabular}
+\begin{center}
+	    Fonte: O autor (2018)
+	\end{center}
+\end{table}
+
+\subsection{Comparação com o serviço Amazon Machine Learning}
+
+Para fazer avaliações deste trabalho com outras metodolodias e técnicas de classificação binária, foi utilizado um serviço da Amazon, especificamente da AWS (\textit{Amazon Web Services}), que é o maior provedor de computação em nuvem do mundo, e oferece diversos serviços na area de Inteligência Artificial e \textit{Machine Learning}. Dentre os serviços disponíveis que permitem realizar a classificação binária, está o serviço chamado \textbf{Amazon Machine Learning}  \cite{amazonmachinelearning}, que foi utilizado com o objetivo de comparação de resultado com o modelo proposto neste trabalho.
+
+O Amazon Machina Learning realiza bsicamente 3 tipos de tarefas:
+
+\begin{enumerate}
+    \item Classificação binária: utilizando o algoritmo de Regressão logística, que usa a \textit{logistic loss function} somado com o gradiente descendente estocástico;
+    \item classificação multi-classe: utilizando o alforitmo de Regressão logística multinomial, que usa a \textit{multinomial logistic loss} somado com o gradiente descendente estocástico;
+    \item regressão: utilizando o algoritmo de Regressão, que usa a \textit{squared loss function} somado com o o gradiente descendente estocástico.
+\end{enumerate}
+
+Como este este trabalho se propõem a estudar um problema de classificação binária, foi utilizado a classificação binária Amazon Machine Learning. 
+
+\subsubsection{Experimentos com o Amazon Machine Learning}
+
+Para os experimentos com o Amazon Machine Learning, foram utilizados as mesmas bases de dados utilizadas na \ref{sec:meto1}, que foram as bases dos modelos vencedores provenientes da metodologia \ref{sec:meto0}. Foram utilizadas as configurações padrões e recomendadas pelo do serviço da Amazon, que utilizam 70\% dos dados para treinamento e 30\% para teste, separando os dados de maneira sequencial.
+
+Para os dados vencedores do Tipo 1, que é o dataset com apenas o valor do preço do Bitcoin com 5 amostras por linha e frequência de 1 dia. Essa configuração gerou resultado de 47,17\% 
+
+Para os dados vencedores do Tipo 2, que é o dataset com apenas o valor \textit{Google Trends} do Bitcoin com x amostras por linha e frequência de 1 dia. Essa configuração gerou resultado de 50,17\%.
+
+Para os dados vencedores do Tipo 3, que é o dataset com a concatenação de amostras o valor do preço do Bitcoin e do valor do \texttt{Google Trends} do termo Bitcoin, com 6, onde 3 são do valor do preço do Bitcoin e 3 \texttt{Google Trends} do termo Bitcoin amostras por linha e frequência de 1 dia, ou seja, essa base de dados representa dados de 3 dias. Essa configuração gerou resultado de 51,64\%.
+
+A tabela \ref{tab:compamazon} apresenta o resultado da comparação 
+
+\begin{table}[]
+\centering
+\label{tab:compamazon}
+\caption{Tabela Comparação do resultado da Amazon Machine Learning (AML) e da metodologia proposta neste trabalho}
+\begin{tabular}{|M{0.8cm}|M{2.4cm}|M{2.6cm}|M{2.5cm}|}
+\hline
+ Tipo&AML Acurácia (\%)&Este trabalho Acurácia (\%)&Diferença (\%)\\\hline
+ 1&47,17&50,23&+3,06\\
+ 2&50,17&xx,xx&+x,xx\\
+ 3&51,64&53,05&+1,41\\\hline
+\end{tabular}
+\begin{center}
+	    Fonte: O autor (2018)
+	\end{center}
+\end{table}
+
+\subsection{Teoria do mercado eficiente}
+%junior2004mercados, alkiel1970efficient
+A Teoria de mercado eficiente, proposta por \cite{malkiel1970efficient} em 1969, é uma Teoria que define uma mercado eficiente como aquele que sempre consegue refletir no preço do ativo de acordo quantidade de informações disponíveis desse ativo. De acordo com essa Teoria, é impossível alguém conseguir vencer o mercado, pois todas as informações disponíveis para precificar o ativo já estão disponíveis para todos os investidores. 
+
+Na Teoria de mercado eficiente, como explica \cite{junior2004mercados}, sempre que uma informação nova fica disponível, automaticamente o mercado se adapta para ajustar o valor do preço do ativo, ou seja, o mercado sempre tende ao preço real de um ativo, ou valor intrínseco. 
+
+Essa Teoria pode explicar a dificuldade encontrada tanto em \cite{matta2015bitcoin}, quanto neste trabalho em conseguir prever os valores do Bitcoin, mesmo com o uso do \textit{Google Trends}, que ajuda a encontrar comportamentos de manada dos investidores. \dbh{eu esperava uma discussão muito mais profunda aqui, recheada de referências!}
