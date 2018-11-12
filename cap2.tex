@@ -217,7 +217,7 @@ Quando se trata de Redes Neurais, uma característica importantíssima resida na
 
 Se as funções de ativação fossem puramente lineares, não importaria quantas camadas a rede tivesse: o resultado seria uma função linear, visto que a combinação de duas funções lineares é também linear. 
 
-A propriedade de modelagem de relações não lineares deve ser vista com cautela; uma quantidade excessiva de parâmetros pode implicar uma boa aproximação no conjunto de treino, a qual pode não implicar uma boa taxa de acerto no conjunto de teste. Neste caso, temos o problema de \textit{sobreajuste} (em inglês, \textit{overfitting}). Tal sobreajuste significa que a rede neural está demasiado enviezada para as idiossincrassias do conjunto de treinamento; tal ``aprendizado de ruído'' concorre para prejudicar sua habilidade de generalização~\cite{activationfun, haykin2004comprehensive, haykin2009neural, lecun2015deep}.
+A propriedade de modelagem de relações não lineares deve ser vista com cautela; uma quantidade excessiva de parâmetros pode implicar uma boa aproximação no conjunto de treino, a qual pode não implicar uma boa taxa de acerto no conjunto de teste. Neste caso, temos o problema de \textit{sobreajuste} (em inglês, \textit{overfitting}). Tal sobreajuste significa que a rede neural está demasiado enviezada para as idiossincrassias do conjunto de treinamento; tal ``aprendizado de ruído'' concorre para prejudicar sua habilidade de generalização~\cite{activationfun, haykin2004comprehensive, haykin2009neural, lecun2015deep} (O problema do sobreajuste será abordado com maiores detalhes na seção \ref{sec:sobreajuste}).
 
 %FEITO
 %\dbh{Motivar o emprego da função não-linear; a não linearidade é muito importante para o poder das redes neurais.}
@@ -304,3 +304,81 @@ A Função ReLU (\textit{\textbf{RE}ctified \textbf{L}inear \textbf{U}nit}) tem 
 \label{fig:relu}
 \end{figure}
 
+\subsection{O problema do Sobreajuste}
+\label{sec:sobreajuste}
+O problema do sobreajuste (do inglês \textit{overfitting}) é o fenômeno encontrado por modelos de inteligência artificial, onde modelo proposto consegue se adaptar muito bem aos dados de treinamento, mas não tem capacidade de realizar boas previsões com novos dados
+\cite{nasrabadi2007pattern,abu2012learning, dietterich1995overfitting}. É como se o modelo decorasse as a resposta desejada para as entradas e não aprendesse de fato generalizar o problema.
+
+Esse fenômeno ocorre, como mostrado em \cite{overfitting97lawrence}, quando o modelo proposto apresenta uma complexidade muito maior do que o exigido para resolver o problema original. O trabalho \cite{carlospedroviannalordelo2018} também apresenta um estudo sobre como o sobreajuste acontece.
+
+Uma boa abordagem para mostrar como funciona o fenômeno do sobreajuste, que também é a abordagem utilizada em \cite{lawrence1997using, carlospedroviannalordelo2018}, é definir alguns dados de treinamento baseado em uma função base, no exemplo deste trabalho será utilizada a função $f(x)=seno(\pi x)$. Depois da função definida, é definido uma distribuição uniforme aleatória $v$, neste caso variando entre $-0,25$ e $-0,25$, que funciona como um ruído para os dados originais. Com a função base e a distribuição aleatória $v$ foram definidos 10 pontos utilizando a função $g(x)=seno(\pi x) + v$. Os 10 pontos podem ser encontrados na Fig. \ref{fig:sobreajuste}. Com os pontos definidos, foi utilizado a interpolação dos dados para encontrar polinômios de diferentes graus que se ajustem os dados. As Figs. \ref{fig:sobreajuste}a e \ref{fig:sobreajuste}b e apresentam a função base, $f(x)=seno(\pi x)$, em vermelho, os pontos definidos como base de dados em preto e uma sequência de poliônimos com objetivo de ajustar os pontos da base de dados. A Fig. \ref{fig:sobreajuste}a apresenta o polinômio de grau 2 em azul e o polinômio de grau 5 em cinza, onde é possível ver que o polinômio grau 2 não consegue de ajustar aos dados, já o polinômio de grau 5 já se ajusta muito bem aos dados. Quando o grau do polinômio é aumentado demais, como mostrado na \ref{fig:sobreajuste}b, onde o polinômio de grau 5 aparece em azul e o polinômio de grau 5 em cinza, já é possível ver o sobreajuste, onde as funções conseguem passar perfeitamente pelos pontos da base da dados, mas apresentam valores muito diferentes no restante, o que levaria a uma previsão ruim de novos dados. Esse é o fenômeno conhecido como sobreajuste.
+
+\begin{figure}
+    \centering
+     \caption{Exemplo de sobreajuste}
+     \label{fig:sobreajuste}
+    \begin{subfigure}
+        \centering
+       \label{fig:sobreajuste1}
+       
+        \begin{tikzpicture}
+            \begin{axis}[
+            samples=200,
+		    title={(a)},
+		    xmin=-0.02, xmax=2.02,
+		    ymin=-2,ymax=3.5,
+		    height=8cm,
+			width=14cm,
+			grid=major,
+		    xlabel={x},
+		    ylabel={f(x)},
+		]
+		\addlegendentry {$seno(\pi x)$}
+		\addplot [line width=0.5mm,red] table [col sep=comma] {csv/interp/seno.csv};
+	    \addlegendentry{pontos}
+		\addplot [black, only marks] table [col sep=comma] {csv/interp/dirty_seno.csv};
+        \addlegendentry{grau $2$}
+       \addplot [line width=0.5mm,blue] table [col sep=comma]  {csv/interp/2.csv};
+        \addlegendentry{grau $5$}
+        \addplot [line width=0.5mm,gray] table [col sep=comma]  {csv/interp/5.csv};
+       
+        \end{axis}
+        \end{tikzpicture}
+    \end{subfigure}
+    
+    \begin{subfigure}
+        \centering
+        
+        \label{fig:sobreajuste2}
+        \begin{tikzpicture}
+            \begin{axis}[
+            samples=200,
+		    title={(b)},
+		    xmin=-0.02, xmax=2.02,
+		    ymin=-2,ymax=3.5,
+		    height=8cm,
+			width=14cm,
+			grid=major,
+		    xlabel={x},
+		    ylabel={f(x)},
+		]
+		\addlegendentry {$seno(\pi x)$}
+		\addplot [line width=0.5mm,red] table [col sep=comma] {csv/interp/seno.csv};
+	    \addlegendentry{pontos}
+		\addplot [black, only marks] table [col sep=comma] {csv/interp/dirty_seno.csv};
+        \addlegendentry{grau $10$}
+        \addplot [line width=0.5mm,blue] table [col sep=comma]  {csv/interp/10.csv};
+        \addlegendentry{grau $15$}
+        \addplot [line width=0.5mm,gray] table [col sep=comma]  {csv/interp/15.csv};
+        \end{axis}
+        \end{tikzpicture}
+    \end{subfigure}
+    
+   
+    
+  
+    \begin{center}
+        Fonte: O autor (2018)
+    \end{center}
+    
+\end{figure}

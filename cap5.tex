@@ -13,10 +13,11 @@ Ao executar a metodologia \ref{sec:meto0} com os dados do Tipo 1, que contém ap
 
 Todos os 7 modelos vencedores utilizaram a base de dados com com 5 amostras e PCA igual a 5, lembrando que o a frequência das amostras é diária. A arquitetura vencedora, que é a arquitetura que ficou na mediana dos valores, apresentou RMS igual a \textbf{24,6557\%}, Desvio padrão de \textbf{5,0190\%} e acurácia média de \textbf{56,6545\%}. Essa arquitetura foi a utilizada na metodologia \ref{sec:meto1}.
 
-\begin{table}[]
+\begin{table}[!ht]
 \centering
-\label{tab:moto0-1}
+
 \caption{Tabela de avaliação de modelo dos dados do Tipo 1}
+\label{tab:moto0-1}
 \begin{tabular}{|M{0.2cm}|M{4cm}|M{1cm}|M{2cm}|M{1.6cm}|M{2cm}|M{1.5cm}|}
 \hline
  &\#Neurônios na camada escondida&\#PCA &\#Amostras por linha&RMS (\%)&Desvio padrão (\%)&Acurácia (\%)\\\hline
@@ -33,23 +34,24 @@ Todos os 7 modelos vencedores utilizaram a base de dados com com 5 amostras e PC
 	\end{center}
 \end{table}
 
-Para executar a metodologia \ref{sec:meto1}, foram realizadas 7 testes da arquitetura vencedora, que podem ser vistos na Tabela \ref{tab:moto1-1}. O resultado final da base de dados do Tipo 1 foi de \textbf{50,2347\%}.
+Para executar a metodologia \ref{sec:meto1}, foram realizadas 7 testes da arquitetura vencedora, que podem ser vistos na Tabela \ref{tab:moto1-1}. O resultado final da base de dados do Tipo 1 foi de \textbf{50,7042\%}.
 
-\begin{table}[]
+\begin{table}[!ht]
 \centering
+
+\caption{Tabela de teste dos dados do Tipo 1}
 \label{tab:moto1-1}
-\caption{Tabela de teste do dos dados do Tipo 1}
 \begin{tabular}{|M{0.4cm}|M{2cm}|}
 \hline
 
  &Acurácia (\%)\\\hline
- 1&49,7652\\
+ 1&48.826\\
  2&50,2347\\
- 3&50,2347\\
- \textbf{4}&\textbf{50,2348}\\
+ 3&50,7042\\
+ \textbf{4}&\textbf{50,7042}\\
  5&50,7042\\
- 6&50,7042\\
- 7&50,7042\\\hline
+ 6&51.1737\\
+ 7&52.5822\\\hline
 \end{tabular}
 \begin{center}
 	    Fonte: O autor (2018)
@@ -60,12 +62,12 @@ Para executar a metodologia \ref{sec:meto1}, foram realizadas 7 testes da arquit
 
 Ao executar a metodologia \ref{sec:meto0} com os dados do Tipo 2, que contém apenas o valor do \textit{Google Trends} do Bitcoin, foram selecionados, ao final, 7 Modelos de Rede Neural a obterem os menores desvio padrão. Os 7 modelos vencedores da metodologia \ref{sec:meto0} são exibidos na Tabela \ref{tab:moto0-2}.
 
-Todos os 7 modelos vencedores utilizaram a base de dados com com x amostras e PCA igual a x, com frequência de amostra diária. A arquitetura vencedora, que é a arquitetura que ficou na mediana dos valores, apresentou RMS igual a \textbf{xx,xxxx\%}, Desvio padrão de \textbf{x,xxxx\%} e acurácia média de \textbf{xx,xxxx\%}. Essa arquitetura foi a utilizada na metodologia \ref{sec:meto1}.
+Todos os 7 modelos vencedores utilizaram a base de dados com com x amostras e PCA igual a x, com frequência de amostra diária. A arquitetura vencedora, que é a arquitetura que ficou na mediana dos valores, apresentou RMS igual a \textbf{24,7828\%}, Desvio padrão de \textbf{4,5962\%} e acurácia média de \textbf{52,5286\%}. Essa arquitetura foi a utilizada na metodologia \ref{sec:meto1}.
 
-\begin{table}[]
+\begin{table}[!ht]
 \centering
-\label{tab:moto0-2}
 \caption{Tabela de avaliação de modelo dos dados do Tipo 2}
+\label{tab:moto0-2}
 \begin{tabular}{|M{0.2cm}|M{4cm}|M{1cm}|M{2cm}|M{1.6cm}|M{2cm}|M{1.5cm}|}
 \hline
  &\#Neurônios na camada escondida&\#PCA &\#Amostras por linha&RMS (\%)&Desvio padrão (\%)&Acurácia (\%)\\\hline
@@ -82,22 +84,23 @@ Todos os 7 modelos vencedores utilizaram a base de dados com com x amostras e PC
 	\end{center}
 \end{table}
 
-Para executar a metodologia \ref{sec:meto1}, foram realizadas 7 testes da arquitetura vencedora, que podem ser vistos na Tabela \ref{tab:moto1-2}. O resultado final da base de dados do Tipo 2 foi de \textbf{xx,xxxx\%}.
+Para executar a metodologia \ref{sec:meto1}, foram realizadas 7 testes da arquitetura vencedora, que podem ser vistos na Tabela \ref{tab:moto1-2}. O resultado final da base de dados do Tipo 2 foi de \textbf{49,2958\%}.
 
-\begin{table}[]
+\begin{table}[!ht]
 \centering
+
+\caption{Tabela de teste dos dados do Tipo 2}
 \label{tab:moto1-2}
-\caption{Tabela de teste do dos dados do Tipo 2}
 \begin{tabular}{|M{0.4cm}|M{2cm}|}
 \hline
  &Acurácia (\%)\\\hline
- 1&1\\
- 2&1\\
- 3&1\\
-\textbf{4}&  \textbf{8}\\
- 5&1\\
- 6&1\\
- 7&1\\\hline
+ 1&48,8263\\
+ 2&48,8263\\
+ 3&48,8263\\
+\textbf{4}&  \textbf{49,2958}\\
+ 5&49,2958\\
+ 6&49,7652\\
+ 7&49,7652\\\hline
 \end{tabular}
 \begin{center}
 	    Fonte: O autor (2018)
@@ -110,10 +113,11 @@ Ao executar a metodologia \ref{sec:meto0} com os dados do Tipo 3, que contém o 
 
 Todos os 7 modelos vencedores utilizaram a base de dados com com 4 amostras e PCA igual a 2, com frequência de amostra diária. A arquitetura vencedora, que é a arquitetura que ficou na mediana dos valores, apresentou RMS igual a \textbf{24,7828\%}, Desvio padrão de \textbf{4,5962\%} e acurácia média de \textbf{52,5286\%}. Essa arquitetura foi a utilizada na metodologia \ref{sec:meto1}.
 
-\begin{table}[]
+\begin{table}[!ht]
 \centering
-\label{tab:moto0-3}
+
 \caption{Tabela de avaliação de modelo dos dados do Tipo 3}
+\label{tab:moto0-3}
 \begin{tabular}{|M{0.2cm}|M{4cm}|M{1cm}|M{2cm}|M{1.6cm}|M{2cm}|M{1.5cm}|}
 \hline
  &\#Neurônios na camada escondida&\#PCA &\#Amostras por linha&RMS (\%)&Desvio padrão (\%)&Acurácia (\%)\\\hline
@@ -132,21 +136,23 @@ Todos os 7 modelos vencedores utilizaram a base de dados com com 4 amostras e PC
 
 Para executar a metodologia \ref{sec:meto1}, foram realizadas 7 testes da arquitetura vencedora, que podem ser vistos na Tabela \ref{tab:moto1-3}. O resultado final da base de dados do Tipo 3 foi de \textbf{53,9906\%}.
 
-\begin{table}[]
+\begin{table}[!ht]
+
 \centering
+
+\caption{Tabela de teste dos dados do Tipo 3}
 \label{tab:moto1-3}
-\caption{Tabela de teste do dos dados do Tipo 3}
 \begin{tabular}{|M{0.4cm}|M{2cm}|}
 \hline
  &Acurácia (\%)\\\hline
  4&53,0516\\
- 1&53,0516\\
+ 1&53,5211\\
  2&53,0516\\
- 3&53,5211\\
+ 3&553,9906\\
  \textbf{4}&\textbf{53,9906}\\
- 5&53,9906\\
- 6&53,9906\\
- 7&54,4601\\\hline
+ 5&54,4601\\
+ 6&54,9296\\
+ 7&55,8685\\\hline
 \end{tabular}
 \begin{center}
 	    Fonte: O autor (2018)
@@ -155,18 +161,20 @@ Para executar a metodologia \ref{sec:meto1}, foram realizadas 7 testes da arquit
 
 \subsection{Comparação do resultado com trabalhos anteriores}
 
-O foco principal deste trabalho foi a comparação com trabalhos anteriores. Até a data deste trabalho, o único trabalho que havia apresentado uma metodologia e resultado para este problema, de predição dos valores futuros do Bitcoin, foi o trabalho \cite{matta2015bitcoin}. Por esse motivo este trabalho utilizou o mesmo intervalo de dados de \cite{matta2015bitcoin}, com objetivo de propor que os dados provenientes do \textit{Google Trends} pode ajudar aumentar a acurácia de um modelo de predição do valor do preço do Bitcoin. O resultado da comparação entre este trabalho e o \cite{matta2015bitcoin} pode ser encontrado na Tabala \ref{tab:compamatta2015}.
+O foco principal deste trabalho foi a comparação com trabalhos anteriores. Até a data deste trabalho, o único trabalho que havia apresentado uma metodologia e resultado para este problema, de predição dos valores futuros do Bitcoin, foi o trabalho \cite{mcnally2016predicting}. Por esse motivo este trabalho utilizou o mesmo intervalo de dados de \cite{mcnally2016predicting}, com objetivo de propor que os dados provenientes do \textit{Google Trends} pode ajudar aumentar a acurácia de um modelo de predição do valor do preço do Bitcoin. O resultado da comparação entre este trabalho e o \cite{mcnally2016predicting} pode ser encontrado na Tabela \ref{tab:compamatta2015}.
 
-\begin{table}[]
+\begin{table}[!ht]
 \centering
+
+\caption[Tabela de comparação do resultado]{Tabela de comparação do resultado deste trabalho com o resultado do trabalho \cite{mcnally2016predicting}}
 \label{tab:compamatta2015}
-\caption[Tabela de comparação do resultado]{Tabela de comparação do resultado deste trabalho com t do trabalho \cite{matta2015bitcoin} e da metodologia proposta neste trabalho}
 \begin{tabular}{|M{0.8cm}|M{2.4cm}|M{0.8cm}|M{2.6cm}|M{2.5cm}|}
 \hline
- Tipo&Trabalho \cite{matta2015bitcoin} Acurácia (\%)&Tipo&Este trabalho Acurácia (\%)&Diferença (\%)\\\hline
- 1&52,78&1&50,23&-2,55\\
- 1&52,78&2&xx,xx&+x,xx\\
- 1&52,78&3&53,05&+0,27\\\hline
+ Tipo&Trabalho \cite{mcnally2016predicting} Acurácia (\%)&Tipo&Este trabalho Acurácia (\%)&Diferença (\%)\\\hline
+ 1&52,78&1&50,70&-2,08\\
+ 1&52,78&2&49,30&-3,48\\
+ \textbf{1}&\textbf{52,78}&\textbf{3}& \textbf{53,99}&\textbf{+1,21}\\\hline
+ 
 \end{tabular}
 \begin{center}
 	    Fonte: O autor (2018)
@@ -177,7 +185,7 @@ O foco principal deste trabalho foi a comparação com trabalhos anteriores. At�
 
 Para fazer avaliações deste trabalho com outras metodolodias e técnicas de classificação binária, foi utilizado um serviço da Amazon, especificamente da AWS (\textit{Amazon Web Services}), que é o maior provedor de computação em nuvem do mundo, e oferece diversos serviços na area de Inteligência Artificial e \textit{Machine Learning}. Dentre os serviços disponíveis que permitem realizar a classificação binária, está o serviço chamado \textbf{Amazon Machine Learning}  \cite{amazonmachinelearning}, que foi utilizado com o objetivo de comparação de resultado com o modelo proposto neste trabalho.
 
-O Amazon Machina Learning realiza bsicamente 3 tipos de tarefas:
+O Amazon Machina Learning realiza basicamente 3 tipos de tarefas:
 
 \begin{enumerate}
     \item Classificação binária: utilizando o algoritmo de Regressão logística, que usa a \textit{logistic loss function} somado com o gradiente descendente estocástico;
@@ -191,24 +199,25 @@ Como este este trabalho se propõem a estudar um problema de classificação bin
 
 Para os experimentos com o Amazon Machine Learning, foram utilizados as mesmas bases de dados utilizadas na \ref{sec:meto1}, que foram as bases dos modelos vencedores provenientes da metodologia \ref{sec:meto0}. Foram utilizadas as configurações padrões e recomendadas pelo do serviço da Amazon, que utilizam 70\% dos dados para treinamento e 30\% para teste, separando os dados de maneira sequencial.
 
-Para os dados vencedores do Tipo 1, que é o dataset com apenas o valor do preço do Bitcoin com 5 amostras por linha e frequência de 1 dia. Essa configuração gerou resultado de 47,17\% 
+Para os dados vencedores do Tipo 1, que é a base de dados com apenas o valor do preço do Bitcoin com 5 amostras por linha e frequência de 1 dia. Essa configuração gerou resultado de 47,17\% 
 
-Para os dados vencedores do Tipo 2, que é o dataset com apenas o valor \textit{Google Trends} do Bitcoin com x amostras por linha e frequência de 1 dia. Essa configuração gerou resultado de 50,17\%.
+Para os dados vencedores do Tipo 2, que é a base de dados com apenas o valor \textit{Google Trends} do Bitcoin com x amostras por linha e frequência de 1 dia. Essa configuração gerou resultado de 50,17\%.
 
-Para os dados vencedores do Tipo 3, que é o dataset com a concatenação de amostras o valor do preço do Bitcoin e do valor do \texttt{Google Trends} do termo Bitcoin, com 6, onde 3 são do valor do preço do Bitcoin e 3 \texttt{Google Trends} do termo Bitcoin amostras por linha e frequência de 1 dia, ou seja, essa base de dados representa dados de 3 dias. Essa configuração gerou resultado de 51,64\%.
+Para os dados vencedores do Tipo 3, que é a base de dados com a concatenação de amostras o valor do preço do Bitcoin e do valor do \texttt{Google Trends} do termo Bitcoin, com 6, onde 3 são do valor do preço do Bitcoin e 3 \texttt{Google Trends} do termo Bitcoin amostras por linha e frequência de 1 dia, ou seja, essa base de dados representa dados de 3 dias. Essa configuração gerou resultado de 51,64\%.
 
 A tabela \ref{tab:compamazon} apresenta o resultado da comparação 
 
-\begin{table}[]
+\begin{table}[!ht]
 \centering
-\label{tab:compamazon}
+
 \caption{Tabela Comparação do resultado da Amazon Machine Learning (AML) e da metodologia proposta neste trabalho}
+\label{tab:compamazon}
 \begin{tabular}{|M{0.8cm}|M{2.4cm}|M{2.6cm}|M{2.5cm}|}
 \hline
  Tipo&AML Acurácia (\%)&Este trabalho Acurácia (\%)&Diferença (\%)\\\hline
- 1&47,17&50,23&+3,06\\
- 2&50,17&xx,xx&+x,xx\\
- 3&51,64&53,05&+1,41\\\hline
+ 1&47,17&50,70&+3,53\\
+ 2&50,17&49,30&-0,87\\
+ 3&51,64&53,99&+2,35\\\hline
 \end{tabular}
 \begin{center}
 	    Fonte: O autor (2018)
@@ -216,9 +225,24 @@ A tabela \ref{tab:compamazon} apresenta o resultado da comparação
 \end{table}
 
 \subsection{Teoria do mercado eficiente}
-%junior2004mercados, alkiel1970efficient
-A Teoria de mercado eficiente, proposta por \cite{malkiel1970efficient} em 1969, é uma Teoria que define uma mercado eficiente como aquele que sempre consegue refletir no preço do ativo de acordo quantidade de informações disponíveis desse ativo. De acordo com essa Teoria, é impossível alguém conseguir vencer o mercado, pois todas as informações disponíveis para precificar o ativo já estão disponíveis para todos os investidores. 
 
-Na Teoria de mercado eficiente, como explica \cite{junior2004mercados}, sempre que uma informação nova fica disponível, automaticamente o mercado se adapta para ajustar o valor do preço do ativo, ou seja, o mercado sempre tende ao preço real de um ativo, ou valor intrínseco. 
+%Feito
+%\dbh{eu esperava uma discussão muito mais profunda aqui, recheada de referências!}
 
-Essa Teoria pode explicar a dificuldade encontrada tanto em \cite{matta2015bitcoin}, quanto neste trabalho em conseguir prever os valores do Bitcoin, mesmo com o uso do \textit{Google Trends}, que ajuda a encontrar comportamentos de manada dos investidores. \dbh{eu esperava uma discussão muito mais profunda aqui, recheada de referências!}
+A Teoria de mercado eficiente, proposta por \cite{malkiel1970efficient} em 1969, é uma Teoria que define uma mercado eficiente como aquele que sempre consegue refletir o preço do ativo de acordo quantidade de informações disponíveis desse ativo. De acordo com essa Teoria, é impossível alguém conseguir vencer o mercado, pois todas as informações disponíveis para precificar o ativo já estão disponíveis para todos os investidores. 
+
+Na Teoria de mercado eficiente, como explica \cite{junior2004mercados}, sempre que uma informação nova fica disponível, automaticamente o mercado se adapta para ajustar o valor do preço do ativo, ou seja, o mercado sempre tende ao preço real de um ativo, ou valor intrínseco, com raras exceções \cite{jensen1978some}.
+
+Dentro da teoria de mercado eficientes, como explicado em \cite{basu1977investment}, diversos estudo empíricos apontam que o preço refletem conjunto particular de informações  disponíveis sobre determinado ativo, sendo assim possível classificar 3 diferentes formas de eficiência:
+
+\begin{itemize}
+    \item Forma fraca: onde apenas informações do preço histórico dos ativos é levado em conta;
+    \item forma semi-forte: onde a preocupação e se os preços vão se ajustar eficientemente a novas informações que surgirem, essas informações têm que ser, obviamente, públicas;
+    \item forma forte: onde a preocupação é se mesmo que alguns investidores ou grupos (e.g., administradores de fundos de investimento) tenham informações privilegiadas relevantes para o preço, se o preço vai se adaptar a essas novas informações.
+\end{itemize}
+
+Essas classificações servem para identificar o montante de informação para cada uma das formas e conseguir distinguir quando elas falham. Cabe ressaltar os termos \textbf{preço real} ou \textbf{valor intrínseco} são aproximações, e não valores perfeitamente exatos. 
+
+A teoria de mercado eficiente também é abordada em \cite{timmermann2004efficient} para a previsão de valores, mostrando que \textit{traders} (nome designado a investidores que compram e vendem ações em curto período de tempo, em geral no mesmo dia) tentam explorar o \textit{delay} que leva entre uma nova informação sobre um determinado ativo ficar disponível e o mercado atualizar o preço deste ativo.
+
+Essa Teoria pode explicar a dificuldade encontrada tanto em \cite{mcnally2016predicting}, quanto neste trabalho em conseguir prever os valores do Bitcoin, mesmo com o uso do \textit{Google Trends}, que ajuda a encontrar comportamentos de manada dos investidores. O trabalho \cite{bartos2015does} avalia o ativo Bitcoin como um mercado eficiente, chegando na conclusão que os eventos disponíveis, tanto positivos, quanto negativos, influenciam diretamente o valor do Bitcoin, de modo extremamente rápido. Isso significa que o preço fica mais baixo durante eventos negativos, e permanecendo em alta durante eventos positivos. Também mostra o Bitcoin segue a formar padrão de oferta e demanda, podendo alterar bastante o preço do ativo.

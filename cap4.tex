@@ -9,7 +9,7 @@ O foco principal dos algoritmos utilizados neste trabalho, que serão apresentad
  
  Para descrever a função custo, vamos considerar o problema de classificação binária, que é o foco deste trabalho. Do ponto de vista da Rede Neural, ela deve possuir apenas um neurônio na última camada para produzir um valor que será encaixado entre 0 e 1, que é alcançado graças a uma função de ativação (nesse trabalho a função sigmoide foi a adotada).
  
- A função custo utilizada neste trabalho foi a MSE \cite{lehmann2006theory}. O Backprogation será usado então para minimizar o resultado da função custo, escolhendo os parâmetros da rede que satisfazem essa condição. O Backpropagation tem esse nome porque a atualização dos parâmetros se dá num passo final, o qual calcula os erros do passo anterior (ou passo \textit{forward}) de modo retroativo.
+ A função custo utilizada neste trabalho foi a MSE. O Backprogation será usado então para minimizar o resultado da função custo, escolhendo os parâmetros da rede que satisfazem essa condição \cite{lehmann2006theory, werbos1974beyond, Rojas1996, werbosBackpropagationthroughtime}. O Backpropagation tem esse nome porque a atualização dos parâmetros se dá num passo final, o qual calcula os erros do passo anterior (ou passo \textit{forward}) de modo retroativo.
  
  Assim, a primeira parte para calcular o Backpropagation consiste na execução o chamado \textit{forward propagation}, etapa que consiste no cômputo da saída $\mathbf{h_\theta}$. Com a saída $\mathbf{h_\theta}$ calculada, devemos calcular o $\mathbf{\delta_k}$, que é o vetor com todos os erros da camada $k$. O cálculo de $\mathbf{\delta_k}$ pode ser visto na Eq. \eqref{eq:deltak}, que pode ser entendido simplesmente como a subtração da saída esperada,  $\mathbf{y}$, pelo resultado obtido, $\mathbf{a_k}$ (é importante notar que $\mathbf{a_k} = \mathbf{h_\theta}$). 
  
@@ -66,9 +66,9 @@ Esse procedimento é repetido para todas as $k$ camadas, menos a primeira, que �
 
 Na próxima seção será abordado um dos métodos utilizados para a seleção de modelos, o $K$-Fold. A adoção deste método é imperiosa, para que a arquitetura da rede escolhida seja robusta e menos propensa ao sobreajuste.
 
-\subsection{$K$-Fold}
+\subsection{\textit{K}-Fold}
  
- Um dos problemas encontrados em soluções de Redes Neurais é a estimativa de quantos Neurônios a Rede terá, visto que não existe na literatura um teorema que diga qual o modelo ideal para cada tipo de problema. Ou seja, trata-se essencialmente de uma escolha empírica. Para ajudar na escolha do modelo de rede, foi usado o algoritmo $K$-fold, que é um algoritmo de validação cruzada que tem como objetivo ajudar a estimar parâmetros do modelo final usando os dados de treino disponíveis \cite{bengio2004no}.
+ Um dos problemas encontrados em soluções de Redes Neurais é a estimativa de quantos Neurônios a Rede terá, visto que não existe na literatura um teorema que diga qual o modelo ideal para cada tipo de problema. Ou seja, trata-se essencialmente de uma escolha empírica. Para ajudar na escolha do modelo de rede, foi usado o algoritmo $K$-fold, que é um algoritmo de validação cruzada que tem como objetivo ajudar a estimar parâmetros do modelo final usando os dados de treino disponíveis \cite{bengio2004no, kohavi1995study, rodriguez2010sensitivity, moreno2012study}.
  
   Para executar o $K$-fold, é preciso primeiro selecionar a quantidade de dados que serão reservados para teste e a quantidade de dados que serão reservados para treinamento do modelo, onde usualmente a escolha gira entre algo em torno de 20\% dos dados disponíveis para teste e 80\% dos dados disponíveis para treinamento. Cumpre notar que este conjunto de teste não se confunde com o conjunto de teste final, o qual sempre será separado do conjunto de treinamento, sendo reservado para a avaliação final de desempenho do modelo neural.
   
@@ -105,7 +105,7 @@ Na próxima seção será abordado um dos métodos utilizados para a seleção d
     \end{center}
 \end{figure}
 
-  A Figura \ref{fig:k-fold} apresenta o modelo do $K$-fold com $K$=10. Cada um dos $K$-folds é representado por um retângulo, onde os retângulos da cor cinza representam o fold de treinamento de cada experimento.
+  A Figura \ref{fig:k-fold} apresenta o modelo do $K$-fold com $K$=10. Cada um dos $K$-folds é representado por um retângulo, onde os retângulos da cor cinza representam o fold de treinamento de cada experimento. Assim, em cada experimento a rede treinará os folds representados pelos retângulos brancos e validará o treinamento com o fold representado pelo retângulo crinza. Note que neste momento, os dados já foram embaralhados, ou seja, cada linha de dados contída dentro de cada fold não está em ordem temporal.
   A próxima seção especificará a metodologia utilizada neste trabalho. Cumpre ressaltar que empregamos o $K$-fold para especificar a quantidade de neurônios no modelo, embora ele também possa ser empregado para outros parâmetros, tais como número de camadas escondidas ou função de ativação a escolher.
 
 \subsection{Metodologia}
@@ -136,7 +136,7 @@ Os três tipos de base de dados utilizados neste trabalho são:
 \subsubsection{Seleção de modelos}
 \label{sec:meto0}
 
- A seleção de modelos é a parte onde será definido o modelo da rede que será usado, utilizando apenas os dados de treinamento. Foi definido um modelo de rede padrão para esse trabalho, pela quantidade de dados disponíveis para treinamento de rede, de três camadas. Em geral, redes com mais camadas só fazem sentido se existirem muitos dados para o treinamento \bac{ref}. Como os dados para esse trabalho se limitaram ao intervalo usado em \cite{mcnally2016predicting}, só existem 1065 linhas de dados do preço do Bitcoin, esse número é considerado pequeno para uma rede com muitas camadas \bac{ref}. Na mesma linha de pensamento, foi definida a quantidade máxima de neurônios na segunda camada em 14 neurônios, por não existirem dados suficientes que justifiquem mais neurônios.
+ A seleção de modelos é a parte onde será definido o modelo da rede que será usado, utilizando apenas os dados de treinamento. Foi definido um modelo de rede padrão para esse trabalho, pela quantidade de dados disponíveis para treinamento de rede, de três camadas. Em geral, redes com mais camadas só fazem sentido se existirem muitos dados para o treinamento \cite{lecun2015deep,chen2014big, najafabadi2015deep}. Como os dados para esse trabalho se limitaram ao intervalo usado em \cite{mcnally2016predicting}, só existem 1065 linhas de dados do preço do Bitcoin, esse número é considerado pequeno para uma rede com muitas camadas. Na mesma linha de pensamento, foi definida a quantidade máxima de neurônios na segunda camada em 14 neurônios, por não existirem dados suficientes que justifiquem mais neurônios.
  
  O modelo base de rede portanto foi definido assim:
  
@@ -166,7 +166,7 @@ Essa metodologia foi executada para todos os três tipos de base de dados. A seg
             \Para{j = 1 ; i}{
                 $X_z \coloneqq PCA(X, j)$\\
                 $folds = Kfold(n_splits=10)$\\
-                \Para{$n_neuronios = 1$ ; 14}{
+                \Para{número de Neurônios $= 1$ ; 14}{
                     \Para{treinamento, teste em folds}{
                     
                         crie modelo da Rede Neural 3 camadas, $i$ Neurônio(s) na primeira camada, $n_{\text{neuronios}}$ na segunda camada e $1$ Neurônio na última camada\\
@@ -187,18 +187,42 @@ Essa metodologia foi executada para todos os três tipos de base de dados. A seg
  
 Esse algoritmo foi o algoritmo utilizado para selecionar os melhores modelos. Com Esses dados disponíveis, o algoritmo de teste de modelo usará os melhores modelos para estimar o resultado preciso, evitando que a inicialização da rede influencie muito o resultado.
 
+\subsection{\textit{Ensemble}}
+
+Antes de continuar com a metodologia de teste do modelo, cabe introduzir o conceito de \textit{ensemble}, técnica utilizada nesta metodologia.
+
+O \textit{ensemble} é uma técnica desenvolvida com o objetivo de reduzir a variância de sistemas de decisão, desse modo aumentando a acurácia do sistema \cite{opitz1999popular}. Para isso, o \textit{ensemble} utiliza vários sistemas para resolver o mesmo problema \cite{opitz1999popular, dietterich2000ensemble, tan2003ensemble, kotsiantis2007supervised, dietterich2000experimental, zhang2012ensemble}. A resposta final a ser utilizada é a medina, ou a média, de todos os sistemas, o que reduz a variância, visto que o resultado final usará a reposta que mais aparece cada um dos sistemas do \textit{ensemble}, no caso da mediana em uma classificação binária, o que resulta em um resultado mais confiável e com viés de inicialização reduzido, que pode ocorrer nos sistemas isoladamente.
+
+Apenas para exemplificar o funcionamento do \textit{ensemble}, foi criada a Fig. \\ref{fig:ensemble}. As Figs. \ref{fig:ensemble}a, \ref{fig:ensemble}b e \ref{fig:ensemble}c apresentam 3 modelos que fazem classificação de dados. Cada um desses três modelos classifica os dados e, ao final, suas classificações são somadas (Fig. \ref{fig:ensemble}d). o algoritmo, então, seleciona a média médias (neste trabalho foi utilizado a mediana) da curvas e entrega uma classificação média dos três modelos, que pode ser visto na Fig. \ref{fig:ensemble}e. O resultado final, como mostrado em \cite{opitz1999popular}, reduz variância, consequentemente aumentando a acurácia do modelo final.
+
+
+
+\begin{figure}[ht!]
+    \centering
+    \caption{Exemplo de ensemble}
+    \includegraphics[scale=1.45]{Figuras/Cap4/ensemble.png}
+    \begin{center}
+    Fonte:
+        O autor (2018), adaptado de \cite{zhang2012ensemble}.
+    \end{center}
+         
+        \label{fig:ensemble}
+\end{figure}
+
+%FEITO
+%\dbh{Sua abordagem de métodos ensemble está muito primitiva! Você precisa ler aqui uns 30 artigos, no mínimo, para melhorar este texto!}
+
 \subsubsection{Teste do modelo}
 \label{sec:meto1}
 
-O algoritmo de teste de modelo foi pensado para testar os melhores modelos do algoritmo de seleção de modelo. Nesse algoritmo foram utilizado os dados de testes, com objetivo de simular o comportamento real do modelo escolhido.
+O algoritmo de teste de modelo foi pensado para testar os melhores modelos do algoritmo de seleção de modelo. Nesta fase de teste do modelo, foram utilizados os dados de teste, com objetivo de simular o comportamento real do modelo escolhido. cabe ressaltar que esse é o único momento em todo o trabalho em que os dados de teste são utilizado, a fim de simular o comportamento real do modelo.
 
-A ideal desse algoritmo é realizar dois \textit{ensemble}, que é uma técnica que utiliza várias redes para resolver o mesmo problema \bac{ref}, tornando o resultado mais preciso. O \textit{ensemble} funciona executando várias redes (idealmente um número ímpar de redes), com modelos iguais e inicialização dos pesos diferentes.  Ao executar a previsão, as respostas de cada rede são ordenadas e escolhida a mediana das respostas como resposta final. Essa técnica costuma ter performance melhor que uma rede só, por usar a mediana de várias redes, reduzindo o viés oriundo da inicialização. \dbh{Sua abordagem de métodos ensemble está muito primitiva! Você precisa ler aqui uns 30 artigos, no mínimo, para melhorar este texto!}
-
-Essa técnica foi aplicada em dois contextos no teste do modelo:
+O algoritmo proposto para o teste do modelo, neste trabalho, realiza dois \textit{ensemble}, executando várias redes (idealmente um número ímpar de redes), com modelos iguais e inicialização dos pesos diferentes.  Ao executar a previsão, as respostas de cada rede são ordenadas e é escolhida a mediana das respostas como resposta final. 
+A técnica do \textit{ensemble} foi aplicada em dois contextos no teste do modelo:
 
 \begin{enumerate}
-    \item Ensemble de modelo: tendo em vista os resultados da seleção de modelo, foram escolhidos os 7 modelos com menos desvio padrão para o Ensemble;
-    \item Ensemble de resultado: para cada modelo do Ensemble de modelo são criadas 7 Redes Neurais com mesma arquitetura e inicialização diferente. Todas as 7 Redes Neurais são treinadas e testadas, onde o resultado do modelo passa ser a mediana dos resultados de todas as Redes. A mediana é uma medida mais robusta a aberrações do que a média, daí a sua adoção.
+    \item\textit{Ensemble} de modelo: tendo em vista os resultados da seleção de modelo, foram escolhidos os 7 modelos que apresentaram o menor desvio padrão para o \textit{Ensemble};
+    \item \textit{Ensemble} de resultado: para cada modelo do \textit{ensemble} de modelo, são criadas 7 Redes Neurais com mesma arquitetura e inicialização diferente. Todas as 7 Redes Neurais são treinadas e testadas, onde o resultado do modelo passa ser a mediana dos resultados de todas as Redes. A mediana é uma medida mais robusta a aberrações do que a média, daí a sua adoção.
 \end{enumerate}
 
 Após executar os dois Ensembles, são obtidos os resultados que serão considerados para esse trabalho. No próximo capítulo serão apresentados os resultados do trabalho, obtidos com as metodologias aqui descritas.
